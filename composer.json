@@ -1,0 +1,33 @@
+{
+  "name": "fluxlabs/fluxscormplayerapi",
+  "description": "Play scorm modules",
+  "type": "project",
+  "keywords": [
+    "module",
+    "play",
+    "player",
+    "scorm"
+  ],
+  "homepage": "https://github.com/fluxapps/FluxScormPlayerApi",
+  "license": "GPL-3.0-only",
+  "require": {
+    "php": ">=8.0",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "ext-mongodb": "*",
+    "ext-simplexml": "*",
+    "ext-swoole": "*",
+    "ext-zip": "*",
+    "mongodb/mongodb": "1.9.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Fluxlabs\\FluxScormPlayerApi\\": "src/"
+    }
+  },
+  "config": {
+    "classmap-authoritative": true,
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}
