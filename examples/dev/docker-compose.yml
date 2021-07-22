@@ -1,0 +1,25 @@
+version: "3"
+services:
+  scorm-player-db:
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=scorm-player
+      - MONGO_INITDB_ROOT_PASSWORD=...
+    image: mongo:5.0
+    volumes:
+      - ./data/db:/data/db
+  scorm-player-api:
+    depends_on:
+      - scorm-player-db
+    environment:
+      - FLUX_SCORM_PLAYER_API_DATABASE_PASSWORD=...
+    image: docker-registry.fluxpublisher.ch/flux-scorm-player/api:latest
+    ports:
+      - [%host_ip%:]9501:9501
+    volumes:
+      - ./data/scorm:/scorm
+  other-service:
+    depends_on:
+      - scorm-player-api
+    environment:
+      [- FLUX_SCORM_PLAYER_API_HOST=scorm-player-api]
+      [- FLUX_SCORM_PLAYER_API_PORT=9501]
