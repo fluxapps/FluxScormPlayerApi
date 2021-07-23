@@ -75,7 +75,7 @@ class ExternalApiDataStorage implements DataStorage
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
 
             if ($data !== null) {
-                curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+                curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data, JSON_UNESCAPED_SLASHES));
                 $headers["Content-Type"] = "application/json;charset=utf-8";
             }
 

@@ -89,7 +89,7 @@ class Server
 
         if ($data !== null) {
             $response->header("Content-Type", "application/json;charset=utf-8");
-            $response->write(json_encode($data));
+            $response->write(json_encode($data, JSON_UNESCAPED_SLASHES));
         } else {
             $response->status(403);
         }
