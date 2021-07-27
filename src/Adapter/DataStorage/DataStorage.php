@@ -11,5 +11,5 @@ interface DataStorage
     public function getData(string $scorm_id, string $user_id) : ?object;
 
 
-    public function storeData(string $scorm_id, string $user_id, object $data) : ?object;
+    public function storeData(string $scorm_id, string $user_id, object $data) : void;
 }

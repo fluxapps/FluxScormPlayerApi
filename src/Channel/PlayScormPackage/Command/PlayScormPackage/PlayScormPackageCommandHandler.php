@@ -49,7 +49,7 @@ class PlayScormPackageCommandHandler
         $html = file_get_contents(__DIR__ . "/template/index.html");
 
         $placeholders = [
-            "config"     => base64_encode(json_encode($config)),
+            "config"     => base64_encode(json_encode($config, JSON_UNESCAPED_SLASHES)),
             "entrypoint" => $metadata->getEntrypoint(),
             "id"         => $command->getId(),
             "title"      => $metadata->getTitle()
