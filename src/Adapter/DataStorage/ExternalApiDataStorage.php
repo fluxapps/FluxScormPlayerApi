@@ -41,9 +41,9 @@ class ExternalApiDataStorage implements DataStorage
     }
 
 
-    public function storeData(string $scorm_id, string $user_id, object $data) : ?object
+    public function storeData(string $scorm_id, string $user_id, object $data) : void
     {
-        return $this->request(
+        $this->request(
             $this->external_api_config->getStoreDataUrl(),
             $scorm_id,
             $user_id,
@@ -79,7 +79,7 @@ class ExternalApiDataStorage implements DataStorage
                 $headers["Content-Type"] = "application/json;charset=utf-8";
             }
 
-            $return = $method !== "DELETE";
+            $return = $method === "GET";
             if ($return) {
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                 $headers["Accept"] = "application/json;charset=utf-8";

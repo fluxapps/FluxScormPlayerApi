@@ -37,7 +37,7 @@ class DatabaseDataStorage implements DataStorage
     }
 
 
-    public function storeData(string $scorm_id, string $user_id, object $data) : ?object
+    public function storeData(string $scorm_id, string $user_id, object $data) : void
     {
         $this->collection->replaceOne([
             "scorm_id" => $scorm_id,
@@ -47,7 +47,5 @@ class DatabaseDataStorage implements DataStorage
             "user_id"  => $user_id,
             "data"     => $data
         ], ["upsert" => true]);
-
-        return $data;
     }
 }

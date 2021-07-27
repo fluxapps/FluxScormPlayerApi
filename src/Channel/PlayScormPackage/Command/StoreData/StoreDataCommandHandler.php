@@ -33,10 +33,12 @@ class StoreDataCommandHandler
             return null;
         }
 
-        return $this->data_storage->storeData(
-                $command->getId(),
-                $command->getUserId(),
-                $command->getData()
-            ) ?? (object) [];
+        $this->data_storage->storeData(
+            $command->getId(),
+            $command->getUserId(),
+            $command->getData()
+        );
+
+        return $command->getData();
     }
 }
