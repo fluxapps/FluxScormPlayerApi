@@ -10,6 +10,12 @@
   ],
   "homepage": "https://github.com/fluxapps/FluxScormPlayerApi",
   "license": "GPL-3.0-only",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/fluxapps/FluxRestApi"
+    }
+  ],
   "require": {
     "php": ">=8.0",
     "ext-curl": "*",
@@ -18,6 +24,7 @@
     "ext-simplexml": "*",
     "ext-swoole": "*",
     "ext-zip": "*",
+    "fluxlabs/fluxrestapi": "dev-main",
     "mongodb/mongodb": "1.9.0"
   },
   "autoload": {

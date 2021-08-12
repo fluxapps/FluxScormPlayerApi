@@ -4,8 +4,49 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9fcf88a366076b2f5603a9c61f867392",
+    "content-hash": "f047dab7afe204dbc7047159f1d1beb1",
     "packages": [
+        {
+            "name": "fluxlabs/fluxrestapi",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fluxapps/FluxRestApi.git",
+                "reference": "3b07683613e8fcb715c5b89fcf265f7697d43f35"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fluxapps/FluxRestApi/zipball/3b07683613e8fcb715c5b89fcf265f7697d43f35",
+                "reference": "3b07683613e8fcb715c5b89fcf265f7697d43f35",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=7.4",
+                "symfony/polyfill-php80": "*"
+            },
+            "default-branch": true,
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Fluxlabs\\FluxRestApi\\": "src/"
+                }
+            },
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "description": "Rest Api",
+            "homepage": "https://github.com/fluxapps/FluxRestApi",
+            "keywords": [
+                "api",
+                "rest"
+            ],
+            "support": {
+                "source": "https://github.com/fluxapps/FluxRestApi/tree/main"
+            },
+            "time": "2021-08-12T07:40:27+00:00"
+        },
         {
             "name": "jean85/pretty-package-versions",
             "version": "2.0.4",
@@ -136,16 +177,16 @@
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.23.0",
+            "version": "v1.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
-                "reference": "eca0bf41ed421bed1b57c4958bab16aa86b757d0"
+                "reference": "1100343ed1a92e3a38f9ae122fc0eb21602547be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/eca0bf41ed421bed1b57c4958bab16aa86b757d0",
-                "reference": "eca0bf41ed421bed1b57c4958bab16aa86b757d0",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/1100343ed1a92e3a38f9ae122fc0eb21602547be",
+                "reference": "1100343ed1a92e3a38f9ae122fc0eb21602547be",
                 "shasum": ""
             },
             "require": {
@@ -199,7 +240,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.23.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.23.1"
             },
             "funding": [
                 {
@@ -215,13 +256,15 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-19T12:13:01+00:00"
+            "time": "2021-07-28T13:41:28+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "fluxlabs/fluxrestapi": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
