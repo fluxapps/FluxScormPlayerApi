@@ -2,9 +2,11 @@
 
 namespace Fluxlabs\FluxScormPlayerApi\Adapter\Route;
 
+use Fluxlabs\FluxRestApi\Method\Method;
 use Fluxlabs\FluxRestApi\Request\RequestDto;
 use Fluxlabs\FluxRestApi\Response\ResponseDto;
 use Fluxlabs\FluxRestApi\Route\Route;
+use Fluxlabs\FluxRestApi\Status\Status;
 use Fluxlabs\FluxScormPlayerApi\Adapter\Api\Api;
 
 class StaticRoute implements Route
@@ -23,7 +25,13 @@ class StaticRoute implements Route
     }
 
 
-    public function getBodyType() : ?string
+    public function getDocuRequestBodyTypes() : ?array
+    {
+        return null;
+    }
+
+
+    public function getDocuRequestQueryParams() : ?array
     {
         return null;
     }
@@ -31,7 +39,7 @@ class StaticRoute implements Route
 
     public function getMethod() : string
     {
-        return "GET";
+        return Method::GET;
     }
 
 
@@ -41,10 +49,10 @@ class StaticRoute implements Route
     }
 
 
-    public function handle(RequestDto $request) : ResponseDto
+    public function handle(RequestDto $request) : ?ResponseDto
     {
         $path = $this->api->getStaticPath(
-            $request->getParams()["path"]
+            $request->getParam("path")
         );
 
         if ($path !== null) {
@@ -58,7 +66,7 @@ class StaticRoute implements Route
         } else {
             return ResponseDto::new(
                 null,
-                404
+                Status::_404
             );
         }
     }

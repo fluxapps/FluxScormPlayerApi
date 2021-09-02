@@ -6,14 +6,10 @@ use Fluxlabs\FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
 use Fluxlabs\FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
 use Fluxlabs\FluxScormPlayerApi\Adapter\MetadataStorage\MetadataDto;
 use Fluxlabs\FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
-use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\DeleteScormPackage\DeleteScormPackageCommand;
-use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\DeleteScormPackage\DeleteScormPackageCommandHandler;
-use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\GetScormPackageAssetPath\GetScormPackageAssetPathCommand;
-use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\GetScormPackageAssetPath\GetScormPackageAssetPathCommandHandler;
-use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\GetScormPackageMetadata\GetScormPackageMetadataCommand;
-use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\GetScormPackageMetadata\GetScormPackageMetadataCommandHandler;
-use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\UploadScormPackage\UploadScormPackageCommand;
-use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\UploadScormPackage\UploadScormPackageCommandHandler;
+use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\DeleteScormPackageCommand;
+use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\GetScormPackageAssetPathCommand;
+use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\GetScormPackageMetadataCommand;
+use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\UploadScormPackageCommand;
 
 class FilesystemService
 {
@@ -37,59 +33,51 @@ class FilesystemService
 
     public function deleteScormPackage(string $id) : void
     {
-        DeleteScormPackageCommandHandler::new(
+        DeleteScormPackageCommand::new(
             $this->filesystem_config,
             $this->metadata_storage,
             $this->data_storage
         )
-            ->handle(
-                DeleteScormPackageCommand::new(
-                    $id
-                )
+            ->deleteScormPackage(
+                $id
             );
     }
 
 
     public function getScormPackageAssetPath(string $id, string $path) : ?string
     {
-        return GetScormPackageAssetPathCommandHandler::new(
+        return GetScormPackageAssetPathCommand::new(
             $this->filesystem_config
         )
-            ->handle(
-                GetScormPackageAssetPathCommand::new(
-                    $id,
-                    $path
-                )
+            ->getScormPackageAssetPath(
+                $id,
+                $path
             );
     }
 
 
     public function getScormPackageMetadata(string $id) : ?MetadataDto
     {
-        return GetScormPackageMetadataCommandHandler::new(
+        return GetScormPackageMetadataCommand::new(
             $this->filesystem_config,
             $this->metadata_storage
         )
-            ->handle(
-                GetScormPackageMetadataCommand::new(
-                    $id
-                )
+            ->getScormPackageMetadata(
+                $id
             );
     }
 
 
     public function uploadScormPackage(string $id, string $title, string $file) : void
     {
-        UploadScormPackageCommandHandler::new(
+        UploadScormPackageCommand::new(
             $this->filesystem_config,
             $this->metadata_storage
         )
-            ->handle(
-                UploadScormPackageCommand::new(
-                    $id,
-                    $title,
-                    $file
-                )
+            ->uploadScormPackage(
+                $id,
+                $title,
+                $file
             );
     }
 }

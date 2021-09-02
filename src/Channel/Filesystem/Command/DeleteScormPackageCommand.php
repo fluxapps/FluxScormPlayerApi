@@ -1,12 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\DeleteScormPackage;
+namespace Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command;
 
 use Fluxlabs\FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
 use Fluxlabs\FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
 use Fluxlabs\FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
 
-class DeleteScormPackageCommandHandler
+class DeleteScormPackageCommand
 {
 
     private DataStorage $data_storage;
@@ -16,28 +16,28 @@ class DeleteScormPackageCommandHandler
 
     public static function new(FilesystemConfigDto $filesystem_config, MetadataStorage $metadata_storage, DataStorage $data_storage) : static
     {
-        $handler = new static();
+        $command = new static();
 
-        $handler->filesystem_config = $filesystem_config;
-        $handler->metadata_storage = $metadata_storage;
-        $handler->data_storage = $data_storage;
+        $command->filesystem_config = $filesystem_config;
+        $command->metadata_storage = $metadata_storage;
+        $command->data_storage = $data_storage;
 
-        return $handler;
+        return $command;
     }
 
 
-    public function handle(DeleteScormPackageCommand $command) : void
+    public function deleteScormPackage(string $id) : void
     {
-        if (file_exists($path = $this->filesystem_config->getFolder() . "/" . $command->getId())) {
+        if (file_exists($path = $this->filesystem_config->getFolder() . "/" . $id)) {
             exec("rm -rf " . escapeshellarg($path));
         }
 
         $this->metadata_storage->deleteMetadata(
-            $command->getId()
+            $id
         );
 
         $this->data_storage->deleteData(
-            $command->getId()
+            $id
         );
     }
 }

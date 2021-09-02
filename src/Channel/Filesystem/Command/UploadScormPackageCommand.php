@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\UploadScormPackage;
+namespace Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command;
 
 use Exception;
 use Fluxlabs\FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
@@ -8,7 +8,7 @@ use Fluxlabs\FluxScormPlayerApi\Adapter\MetadataStorage\MetadataDto;
 use Fluxlabs\FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
 use ZipArchive;
 
-class UploadScormPackageCommandHandler
+class UploadScormPackageCommand
 {
 
     private FilesystemConfigDto $filesystem_config;
@@ -17,21 +17,21 @@ class UploadScormPackageCommandHandler
 
     public static function new(FilesystemConfigDto $filesystem_config, MetadataStorage $metadata_storage) : static
     {
-        $handler = new static();
+        $command = new static();
 
-        $handler->filesystem_config = $filesystem_config;
-        $handler->metadata_storage = $metadata_storage;
+        $command->filesystem_config = $filesystem_config;
+        $command->metadata_storage = $metadata_storage;
 
-        return $handler;
+        return $command;
     }
 
 
-    public function handle(UploadScormPackageCommand $command) : void
+    public function uploadScormPackage(string $id, string $title, string $file) : void
     {
-        $path = $this->filesystem_config->getFolder() . "/" . $command->getId();
+        $path = $this->filesystem_config->getFolder() . "/" . $id;
 
         $this->extractZipFile(
-            $command->getFile(),
+            $file,
             $path
         );
 
@@ -53,9 +53,9 @@ class UploadScormPackageCommandHandler
         }
 
         $this->metadata_storage->storeMetadata(
-            $command->getId(),
+            $id,
             MetadataDto::new(
-                $command->getTitle(),
+                $title,
                 $manifest["resources"]["resource"]["@attributes"]["href"],
                 $type
             )

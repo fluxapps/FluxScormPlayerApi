@@ -1,11 +1,11 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\StoreData;
+namespace Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command;
 
 use Fluxlabs\FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
 use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
 
-class StoreDataCommandHandler
+class StoreDataCommand
 {
 
     private DataStorage $data_storage;
@@ -14,19 +14,19 @@ class StoreDataCommandHandler
 
     public static function new(FilesystemService $filesystem, DataStorage $data_storage) : static
     {
-        $handler = new static();
+        $command = new static();
 
-        $handler->filesystem = $filesystem;
-        $handler->data_storage = $data_storage;
+        $command->filesystem = $filesystem;
+        $command->data_storage = $data_storage;
 
-        return $handler;
+        return $command;
     }
 
 
-    public function handle(StoreDataCommand $command) : ?object
+    public function storeData(string $id, string $user_id, object $data) : ?object
     {
         $metadata = $this->filesystem->getScormPackageMetadata(
-            $command->getId()
+            $id
         );
 
         if ($metadata === null) {
@@ -34,11 +34,11 @@ class StoreDataCommandHandler
         }
 
         $this->data_storage->storeData(
-            $command->getId(),
-            $command->getUserId(),
-            $command->getData()
+            $id,
+            $user_id,
+            $data
         );
 
-        return $command->getData();
+        return $data;
     }
 }

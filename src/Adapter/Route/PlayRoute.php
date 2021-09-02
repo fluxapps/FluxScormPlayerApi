@@ -3,9 +3,11 @@
 namespace Fluxlabs\FluxScormPlayerApi\Adapter\Route;
 
 use Fluxlabs\FluxRestApi\Body\HtmlBodyDto;
+use Fluxlabs\FluxRestApi\Method\Method;
 use Fluxlabs\FluxRestApi\Request\RequestDto;
 use Fluxlabs\FluxRestApi\Response\ResponseDto;
 use Fluxlabs\FluxRestApi\Route\Route;
+use Fluxlabs\FluxRestApi\Status\Status;
 use Fluxlabs\FluxScormPlayerApi\Adapter\Api\Api;
 
 class PlayRoute implements Route
@@ -24,7 +26,13 @@ class PlayRoute implements Route
     }
 
 
-    public function getBodyType() : ?string
+    public function getDocuRequestBodyTypes() : ?array
+    {
+        return null;
+    }
+
+
+    public function getDocuRequestQueryParams() : ?array
     {
         return null;
     }
@@ -32,7 +40,7 @@ class PlayRoute implements Route
 
     public function getMethod() : string
     {
-        return "GET";
+        return Method::GET;
     }
 
 
@@ -42,11 +50,11 @@ class PlayRoute implements Route
     }
 
 
-    public function handle(RequestDto $request) : ResponseDto
+    public function handle(RequestDto $request) : ?ResponseDto
     {
         $html = $this->api->playScormPackage(
-            $request->getParams()["scorm_id"],
-            $request->getParams()["user_id"]
+            $request->getParam("scorm_id"),
+            $request->getParam("user_id")
         );
 
         if ($html !== null) {
@@ -58,7 +66,7 @@ class PlayRoute implements Route
         } else {
             return ResponseDto::new(
                 null,
-                403
+                Status::_403
             );
         }
     }

@@ -2,9 +2,11 @@
 
 namespace Fluxlabs\FluxScormPlayerApi\Adapter\Route;
 
+use Fluxlabs\FluxRestApi\Method\Method;
 use Fluxlabs\FluxRestApi\Request\RequestDto;
 use Fluxlabs\FluxRestApi\Response\ResponseDto;
 use Fluxlabs\FluxRestApi\Route\Route;
+use Fluxlabs\FluxRestApi\Status\Status;
 use Fluxlabs\FluxScormPlayerApi\Adapter\Api\Api;
 
 class AssetRoute implements Route
@@ -23,7 +25,13 @@ class AssetRoute implements Route
     }
 
 
-    public function getBodyType() : ?string
+    public function getDocuRequestBodyTypes() : ?array
+    {
+        return null;
+    }
+
+
+    public function getDocuRequestQueryParams() : ?array
     {
         return null;
     }
@@ -31,7 +39,7 @@ class AssetRoute implements Route
 
     public function getMethod() : string
     {
-        return "GET";
+        return Method::GET;
     }
 
 
@@ -41,11 +49,11 @@ class AssetRoute implements Route
     }
 
 
-    public function handle(RequestDto $request) : ResponseDto
+    public function handle(RequestDto $request) : ?ResponseDto
     {
         $path = $this->api->getScormPackageAssetPath(
-            $request->getParams()["scorm_id"],
-            $request->getParams()["path"]
+            $request->getParam("scorm_id"),
+            $request->getParam("path")
         );
 
         if ($path !== null) {
@@ -59,7 +67,7 @@ class AssetRoute implements Route
         } else {
             return ResponseDto::new(
                 null,
-                404
+                Status::_404
             );
         }
     }
