@@ -2,8 +2,8 @@
 
 namespace Fluxlabs\FluxScormPlayerApi\Adapter\Server;
 
-use Fluxlabs\FluxRestApi\Handler\SwooleHandler;
-use Fluxlabs\FluxRestApi\Route\Collector\FolderRouteCollector;
+use Fluxlabs\FluxRestApi\Adapter\Collector\FolderRouteCollector;
+use Fluxlabs\FluxRestApi\Adapter\Handler\SwooleHandler;
 use Fluxlabs\FluxScormPlayerApi\Adapter\Api\Api;
 use Fluxlabs\FluxScormPlayerApi\Adapter\Config\Config;
 use Fluxlabs\FluxScormPlayerApi\Adapter\Config\EnvConfig;

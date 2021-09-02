@@ -2,6 +2,7 @@
 
 namespace Fluxlabs\FluxScormPlayerApi\Adapter\Route;
 
+use Fluxlabs\FluxRestApi\Method\Method;
 use Fluxlabs\FluxRestApi\Request\RequestDto;
 use Fluxlabs\FluxRestApi\Response\ResponseDto;
 use Fluxlabs\FluxRestApi\Route\Route;
@@ -23,7 +24,13 @@ class DeleteRoute implements Route
     }
 
 
-    public function getBodyType() : ?string
+    public function getDocuRequestBodyTypes() : ?array
+    {
+        return null;
+    }
+
+
+    public function getDocuRequestQueryParams() : ?array
     {
         return null;
     }
@@ -31,7 +38,7 @@ class DeleteRoute implements Route
 
     public function getMethod() : string
     {
-        return "DELETE";
+        return Method::DELETE;
     }
 
 
@@ -41,12 +48,12 @@ class DeleteRoute implements Route
     }
 
 
-    public function handle(RequestDto $request) : ResponseDto
+    public function handle(RequestDto $request) : ?ResponseDto
     {
         $this->api->deleteScormPackage(
-            $request->getParams()["scorm_id"]
+            $request->getParam("scorm_id")
         );
 
-        return ResponseDto::new();
+        return null;
     }
 }

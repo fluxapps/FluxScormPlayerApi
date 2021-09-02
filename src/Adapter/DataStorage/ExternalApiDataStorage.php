@@ -2,6 +2,8 @@
 
 namespace Fluxlabs\FluxScormPlayerApi\Adapter\DataStorage;
 
+use Fluxlabs\FluxRestApi\Header\Header;
+use Fluxlabs\FluxRestApi\Method\Method;
 use Fluxlabs\FluxScormPlayerApi\Adapter\Config\ExternalApiConfigDto;
 
 class ExternalApiDataStorage implements DataStorage
@@ -26,7 +28,7 @@ class ExternalApiDataStorage implements DataStorage
             $this->external_api_config->getDeleteDataUrl(),
             $scorm_id,
             null,
-            "DELETE"
+            Method::DELETE
         );
     }
 
@@ -47,13 +49,13 @@ class ExternalApiDataStorage implements DataStorage
             $this->external_api_config->getStoreDataUrl(),
             $scorm_id,
             $user_id,
-            "POST",
+            Method::POST,
             $data
         );
     }
 
 
-    private function request(string $url, string $scorm_id, ?string $user_id = null, ?string $method = "GET", ?object $data = null) : ?object
+    private function request(string $url, string $scorm_id, ?string $user_id = null, ?string $method = Method::GET, ?object $data = null) : ?object
     {
         $curl = null;
         try {
@@ -69,20 +71,20 @@ class ExternalApiDataStorage implements DataStorage
             $curl = curl_init($url);
 
             $headers = [
-                "User-Agent" => "FluxScormPlayerApi"
+                Header::USER_AGENT => "FluxScormPlayerApi"
             ];
 
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
 
             if ($data !== null) {
                 curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data, JSON_UNESCAPED_SLASHES));
-                $headers["Content-Type"] = "application/json;charset=utf-8";
+                $headers[Header::CONTENT_TYPE] = "application/json";
             }
 
-            $return = $method === "GET";
+            $return = $method === Method::GET;
             if ($return) {
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                $headers["Accept"] = "application/json;charset=utf-8";
+                $headers[Header::ACCEPT] = "application/json";
             }
 
             curl_setopt($curl, CURLOPT_HTTPHEADER, array_map(fn(string $key, string $value) : string => $key . ": " . $value, array_keys($headers), $headers));

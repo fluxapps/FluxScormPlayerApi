@@ -4,14 +4,10 @@ namespace Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Port;
 
 use Fluxlabs\FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
 use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
-use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\GetData\GetDataCommand;
-use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\GetData\GetDataCommandHandler;
-use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\GetStaticPath\GetStaticPathCommand;
-use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\GetStaticPath\GetStaticPathCommandHandler;
-use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\PlayScormPackage\PlayScormPackageCommand;
-use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\PlayScormPackage\PlayScormPackageCommandHandler;
-use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\StoreData\StoreDataCommand;
-use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\StoreData\StoreDataCommandHandler;
+use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\GetDataCommand;
+use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\GetStaticPathCommand;
+use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\PlayScormPackageCommand;
+use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\StoreDataCommand;
 
 class PlayScormPackageService
 {
@@ -33,56 +29,48 @@ class PlayScormPackageService
 
     public function getData(string $id, string $user_id) : ?object
     {
-        return GetDataCommandHandler::new(
+        return GetDataCommand::new(
             $this->filesystem,
             $this->data_storage
         )
-            ->handle(
-                GetDataCommand::new(
-                    $id,
-                    $user_id
-                )
+            ->getData(
+                $id,
+                $user_id
             );
     }
 
 
     public function getStaticPath(string $path) : ?string
     {
-        return GetStaticPathCommandHandler::new()
-            ->handle(
-                GetStaticPathCommand::new(
-                    $path
-                )
+        return GetStaticPathCommand::new()
+            ->getStaticPath(
+                $path
             );
     }
 
 
     public function playScormPackage(string $id, string $user_id) : ?string
     {
-        return PlayScormPackageCommandHandler::new(
+        return PlayScormPackageCommand::new(
             $this->filesystem
         )
-            ->handle(
-                PlayScormPackageCommand::new(
-                    $id,
-                    $user_id
-                )
+            ->playScormPackage(
+                $id,
+                $user_id
             );
     }
 
 
     public function storeData(string $id, string $user_id, object $data) : ?object
     {
-        return StoreDataCommandHandler::new(
+        return StoreDataCommand::new(
             $this->filesystem,
             $this->data_storage
         )
-            ->handle(
-                StoreDataCommand::new(
-                    $id,
-                    $user_id,
-                    $data
-                )
+            ->storeData(
+                $id,
+                $user_id,
+                $data
             );
     }
 }

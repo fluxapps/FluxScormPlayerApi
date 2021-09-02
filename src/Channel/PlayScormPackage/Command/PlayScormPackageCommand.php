@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\PlayScormPackage;
+namespace Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command;
 
 use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
 
-class PlayScormPackageCommandHandler
+class PlayScormPackageCommand
 {
 
     private FilesystemService $filesystem;
@@ -12,18 +12,18 @@ class PlayScormPackageCommandHandler
 
     public static function new(FilesystemService $filesystem) : static
     {
-        $handler = new static();
+        $command = new static();
 
-        $handler->filesystem = $filesystem;
+        $command->filesystem = $filesystem;
 
-        return $handler;
+        return $command;
     }
 
 
-    public function handle(PlayScormPackageCommand $command) : ?string
+    public function playScormPackage(string $id, string $user_id) : ?string
     {
         $metadata = $this->filesystem->getScormPackageMetadata(
-            $command->getId()
+            $id
         );
 
         if ($metadata === null) {
@@ -35,9 +35,9 @@ class PlayScormPackageCommandHandler
             "api_settings" => [
                 "autocommit"            => true,
                 "autocommitSeconds"     => 30,
-                "lmsCommitUrl"          => "data/" . $command->getId() . "/" . $command->getUserId(),
+                "lmsCommitUrl"          => "data/" . $id . "/" . $user_id,
                 "dataCommitFormat"      => "json",
-                "commitRequestDataType" => "application/json;charset=utf-8",
+                "commitRequestDataType" => "application/json",
                 "autoProgress"          => false,
                 "logLevel"              => 1,
                 "mastery_override"      => false,
@@ -51,7 +51,7 @@ class PlayScormPackageCommandHandler
         $placeholders = [
             "config"     => base64_encode(json_encode($config, JSON_UNESCAPED_SLASHES)),
             "entrypoint" => $metadata->getEntrypoint(),
-            "id"         => $command->getId(),
+            "id"         => $id,
             "title"      => $metadata->getTitle()
         ];
 
