@@ -53,8 +53,12 @@ class GetDataRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $data = $this->api->getData(
-            $request->getParam("scorm_id"),
-            $request->getParam("user_id")
+            $request->getParam(
+                "scorm_id"
+            ),
+            $request->getParam(
+                "user_id"
+            )
         );
 
         if ($data !== null) {

@@ -52,8 +52,12 @@ class AssetRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $path = $this->api->getScormPackageAssetPath(
-            $request->getParam("scorm_id"),
-            $request->getParam("path")
+            $request->getParam(
+                "scorm_id"
+            ),
+            $request->getParam(
+                "path"
+            )
         );
 
         if ($path !== null) {

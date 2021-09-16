@@ -62,7 +62,7 @@ class EnvConfig implements Config
     public function getDataStorageConfig() : DataStorageConfigDto
     {
         $this->data_storage_config ??= DataStorageConfigDto::new(
-            $_ENV["FLUX_SCORM_PLAYER_API_DATA_STORAGE_TYPE"] ?? null,
+            $_ENV["FLUX_SCORM_PLAYER_API_DATA_STORAGE_TYPE"] ?? null
         );
 
         return $this->data_storage_config;

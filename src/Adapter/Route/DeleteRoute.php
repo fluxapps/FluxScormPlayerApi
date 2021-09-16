@@ -51,7 +51,9 @@ class DeleteRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $this->api->deleteScormPackage(
-            $request->getParam("scorm_id")
+            $request->getParam(
+                "scorm_id"
+            )
         );
 
         return null;

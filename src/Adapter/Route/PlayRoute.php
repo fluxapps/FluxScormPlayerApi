@@ -53,8 +53,12 @@ class PlayRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $html = $this->api->playScormPackage(
-            $request->getParam("scorm_id"),
-            $request->getParam("user_id")
+            $request->getParam(
+                "scorm_id"
+            ),
+            $request->getParam(
+                "user_id"
+            )
         );
 
         if ($html !== null) {
