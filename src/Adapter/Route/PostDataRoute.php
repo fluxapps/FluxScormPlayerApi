@@ -66,8 +66,12 @@ class PostDataRoute implements Route
         }
 
         $data = $this->api->storeData(
-            $request->getParam("scorm_id"),
-            $request->getParam("user_id"),
+            $request->getParam(
+                "scorm_id"
+            ),
+            $request->getParam(
+                "user_id"
+            ),
             $request->getParsedBody()->getData()
         );
 

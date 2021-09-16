@@ -52,7 +52,9 @@ class StaticRoute implements Route
     public function handle(RequestDto $request) : ?ResponseDto
     {
         $path = $this->api->getStaticPath(
-            $request->getParam("path")
+            $request->getParam(
+                "path"
+            )
         );
 
         if ($path !== null) {
