@@ -1,4 +1,4 @@
-FROM node:16-alpine AS build_node_modules
+FROM node:current-alpine AS build_node_modules
 
 WORKDIR /app
 
