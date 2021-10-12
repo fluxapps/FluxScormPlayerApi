@@ -1,6 +1,6 @@
 FROM node:current-alpine AS build_node_modules
 
-WORKDIR /app
+WORKDIR /build
 
 COPY package*.json ./
 RUN npm ci
@@ -18,19 +18,13 @@ RUN apk add --no-cache libzip-dev openssl-dev && \
     docker-php-source delete && \
     apk del .build-deps
 
-WORKDIR /app
+COPY . /app
+ENTRYPOINT ["/app/bin/entrypoint.php"]
 
-COPY . .
+COPY --from=build_node_modules /build/node_modules /app/node_modules
 
-COPY --from=build_node_modules /app/node_modules node_modules
-
-RUN composer install --no-dev
-
-WORKDIR bin
+RUN composer install -d /app --no-dev
 
 VOLUME /scorm
 
 EXPOSE 9501
-
-RUN chmod +x entrypoint.php
-ENTRYPOINT ["./entrypoint.php"]
