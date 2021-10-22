@@ -1,4 +1,5 @@
 FROM node:current-alpine AS build_node_modules
+
 COPY package*.json /FluxScormPlayerApi/
 RUN npm ci --prefix /FluxScormPlayerApi
 
