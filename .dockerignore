@@ -1,5 +1,7 @@
-.*
-Dockerfile
-examples
-node_modules
-vendor
+*
+!bin
+!bin/**
+!src
+!src/**
+!composer.json
+!composer.lock
