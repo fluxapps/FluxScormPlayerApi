@@ -1,8 +1,3 @@
-FROM node:current-alpine AS build_node_modules
-
-COPY package*.json /FluxScormPlayerApi/
-RUN npm ci --prefix /FluxScormPlayerApi
-
 FROM phpswoole/swoole:4.8-php8.0-alpine
 
 LABEL org.opencontainers.image.source="https://github.com/fluxapps/FluxScormPlayerApi"
@@ -17,7 +12,7 @@ RUN apk add --no-cache libzip-dev openssl-dev && \
     apk del .build-deps
 
 COPY . /FluxScormPlayerApi
-COPY --from=build_node_modules /FluxScormPlayerApi/node_modules /FluxScormPlayerApi/node_modules
+RUN (mkdir -p /tmp/scorm-again && cd /tmp/scorm-again && wget -O - https://github.com/jcputney/scorm-again/archive/master.tar.gz | tar -xz --strip-components=1 && mkdir -p /FluxScormPlayerApi/libs && mv dist /FluxScormPlayerApi/libs/scorm-again && rm -rf /tmp/scorm-again)
 
 ENTRYPOINT ["/FluxScormPlayerApi/bin/entrypoint.php"]
 

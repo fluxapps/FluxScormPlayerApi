@@ -11,6 +11,4 @@
 !composer.json
 !composer.lock
 !Dockerfile
-!package.json
-!package-lock.json
 !README.md
