@@ -91,7 +91,7 @@ class ExternalApiDataStorage implements DataStorage
 
             $data = curl_exec($curl);
 
-            if (!$return || empty($data) || empty($data = json_decode($data, true))) {
+            if (!$return || empty($data) || empty($data = json_decode($data))) {
                 $data = null;
             }
 
