@@ -1,14 +1,14 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Adapter\Route;
+namespace FluxScormPlayerApi\Adapter\Route;
 
-use Fluxlabs\FluxRestApi\Body\HtmlBodyDto;
-use Fluxlabs\FluxRestApi\Method\Method;
-use Fluxlabs\FluxRestApi\Request\RequestDto;
-use Fluxlabs\FluxRestApi\Response\ResponseDto;
-use Fluxlabs\FluxRestApi\Route\Route;
-use Fluxlabs\FluxRestApi\Status\Status;
-use Fluxlabs\FluxScormPlayerApi\Adapter\Api\Api;
+use FluxRestApi\Body\HtmlBodyDto;
+use FluxRestApi\Method\Method;
+use FluxRestApi\Request\RequestDto;
+use FluxRestApi\Response\ResponseDto;
+use FluxRestApi\Route\Route;
+use FluxRestApi\Status\Status;
+use FluxScormPlayerApi\Adapter\Api\Api;
 
 class PlayRoute implements Route
 {

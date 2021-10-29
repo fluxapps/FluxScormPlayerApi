@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Adapter\Config;
+namespace FluxScormPlayerApi\Adapter\Config;
 
 class FilesystemConfigDto
 {

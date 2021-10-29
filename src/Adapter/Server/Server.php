@@ -1,12 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Adapter\Server;
+namespace FluxScormPlayerApi\Adapter\Server;
 
-use Fluxlabs\FluxRestApi\Adapter\Collector\FolderRouteCollector;
-use Fluxlabs\FluxRestApi\Adapter\Handler\SwooleHandler;
-use Fluxlabs\FluxScormPlayerApi\Adapter\Api\Api;
-use Fluxlabs\FluxScormPlayerApi\Adapter\Config\Config;
-use Fluxlabs\FluxScormPlayerApi\Adapter\Config\EnvConfig;
+use FluxRestApi\Adapter\Collector\FolderRouteCollector;
+use FluxRestApi\Adapter\Handler\SwooleHandler;
+use FluxScormPlayerApi\Adapter\Api\Api;
+use FluxScormPlayerApi\Adapter\Config\Config;
+use FluxScormPlayerApi\Adapter\Config\EnvConfig;
 use Swoole\Http\Server as SwooleServer;
 
 class Server

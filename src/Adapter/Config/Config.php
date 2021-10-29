@@ -1,9 +1,9 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Adapter\Config;
+namespace FluxScormPlayerApi\Adapter\Config;
 
-use Fluxlabs\FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
-use Fluxlabs\FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
+use FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
+use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
 
 interface Config
 {

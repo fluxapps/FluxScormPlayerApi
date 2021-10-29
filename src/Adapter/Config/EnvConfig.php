@@ -1,13 +1,13 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Adapter\Config;
+namespace FluxScormPlayerApi\Adapter\Config;
 
 use Exception;
-use Fluxlabs\FluxScormPlayerApi\Adapter\DataStorage\DatabaseDataStorage;
-use Fluxlabs\FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
-use Fluxlabs\FluxScormPlayerApi\Adapter\DataStorage\ExternalApiDataStorage;
-use Fluxlabs\FluxScormPlayerApi\Adapter\MetadataStorage\DatabaseMetadataStorage;
-use Fluxlabs\FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
+use FluxScormPlayerApi\Adapter\DataStorage\DatabaseDataStorage;
+use FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
+use FluxScormPlayerApi\Adapter\DataStorage\ExternalApiDataStorage;
+use FluxScormPlayerApi\Adapter\MetadataStorage\DatabaseMetadataStorage;
+use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
 use MongoDB\Client;
 use MongoDB\Collection;
 use MongoDB\Database;

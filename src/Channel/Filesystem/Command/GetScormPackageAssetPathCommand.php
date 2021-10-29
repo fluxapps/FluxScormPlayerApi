@@ -1,8 +1,8 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command;
+namespace FluxScormPlayerApi\Channel\Filesystem\Command;
 
-use Fluxlabs\FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
+use FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
 
 class GetScormPackageAssetPathCommand
 {

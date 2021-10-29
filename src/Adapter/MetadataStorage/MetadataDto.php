@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Adapter\MetadataStorage;
+namespace FluxScormPlayerApi\Adapter\MetadataStorage;
 
 class MetadataDto
 {

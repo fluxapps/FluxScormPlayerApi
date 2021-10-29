@@ -1,8 +1,8 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command;
+namespace FluxScormPlayerApi\Channel\PlayScormPackage\Command;
 
-use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
+use FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
 
 class PlayScormPackageCommand
 {

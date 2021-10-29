@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Adapter\DataStorage;
+namespace FluxScormPlayerApi\Adapter\DataStorage;
 
-use Fluxlabs\FluxRestApi\Header\Header;
-use Fluxlabs\FluxRestApi\Method\Method;
-use Fluxlabs\FluxScormPlayerApi\Adapter\Config\ExternalApiConfigDto;
+use FluxRestApi\Header\Header;
+use FluxRestApi\Method\Method;
+use FluxScormPlayerApi\Adapter\Config\ExternalApiConfigDto;
 
 class ExternalApiDataStorage implements DataStorage
 {

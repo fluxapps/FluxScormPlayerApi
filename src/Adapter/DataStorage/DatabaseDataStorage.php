@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Adapter\DataStorage;
+namespace FluxScormPlayerApi\Adapter\DataStorage;
 
 use MongoDB\Collection;
 

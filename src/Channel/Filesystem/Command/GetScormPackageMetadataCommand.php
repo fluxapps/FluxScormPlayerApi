@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command;
+namespace FluxScormPlayerApi\Channel\Filesystem\Command;
 
-use Fluxlabs\FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
-use Fluxlabs\FluxScormPlayerApi\Adapter\MetadataStorage\MetadataDto;
-use Fluxlabs\FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
+use FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
+use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataDto;
+use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
 
 class GetScormPackageMetadataCommand
 {

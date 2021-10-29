@@ -1,16 +1,16 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Adapter\Route;
+namespace FluxScormPlayerApi\Adapter\Route;
 
-use Fluxlabs\FluxRestApi\Body\BodyType;
-use Fluxlabs\FluxRestApi\Body\JsonBodyDto;
-use Fluxlabs\FluxRestApi\Body\TextBodyDto;
-use Fluxlabs\FluxRestApi\Method\Method;
-use Fluxlabs\FluxRestApi\Request\RequestDto;
-use Fluxlabs\FluxRestApi\Response\ResponseDto;
-use Fluxlabs\FluxRestApi\Route\Route;
-use Fluxlabs\FluxRestApi\Status\Status;
-use Fluxlabs\FluxScormPlayerApi\Adapter\Api\Api;
+use FluxRestApi\Body\BodyType;
+use FluxRestApi\Body\JsonBodyDto;
+use FluxRestApi\Body\TextBodyDto;
+use FluxRestApi\Method\Method;
+use FluxRestApi\Request\RequestDto;
+use FluxRestApi\Response\ResponseDto;
+use FluxRestApi\Route\Route;
+use FluxRestApi\Status\Status;
+use FluxScormPlayerApi\Adapter\Api\Api;
 
 class PostDataRoute implements Route
 {
