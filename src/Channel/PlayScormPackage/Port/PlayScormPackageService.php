@@ -1,13 +1,13 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Port;
+namespace FluxScormPlayerApi\Channel\PlayScormPackage\Port;
 
-use Fluxlabs\FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
-use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
-use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\GetDataCommand;
-use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\GetStaticPathCommand;
-use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\PlayScormPackageCommand;
-use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command\StoreDataCommand;
+use FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
+use FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
+use FluxScormPlayerApi\Channel\PlayScormPackage\Command\GetDataCommand;
+use FluxScormPlayerApi\Channel\PlayScormPackage\Command\GetStaticPathCommand;
+use FluxScormPlayerApi\Channel\PlayScormPackage\Command\PlayScormPackageCommand;
+use FluxScormPlayerApi\Channel\PlayScormPackage\Command\StoreDataCommand;
 
 class PlayScormPackageService
 {

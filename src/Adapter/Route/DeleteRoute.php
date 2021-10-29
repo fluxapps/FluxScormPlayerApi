@@ -1,12 +1,12 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Adapter\Route;
+namespace FluxScormPlayerApi\Adapter\Route;
 
-use Fluxlabs\FluxRestApi\Method\Method;
-use Fluxlabs\FluxRestApi\Request\RequestDto;
-use Fluxlabs\FluxRestApi\Response\ResponseDto;
-use Fluxlabs\FluxRestApi\Route\Route;
-use Fluxlabs\FluxScormPlayerApi\Adapter\Api\Api;
+use FluxRestApi\Method\Method;
+use FluxRestApi\Request\RequestDto;
+use FluxRestApi\Response\ResponseDto;
+use FluxRestApi\Route\Route;
+use FluxScormPlayerApi\Adapter\Api\Api;
 
 class DeleteRoute implements Route
 {

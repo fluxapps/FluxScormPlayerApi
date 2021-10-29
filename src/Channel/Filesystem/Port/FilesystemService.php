@@ -1,15 +1,15 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Port;
+namespace FluxScormPlayerApi\Channel\Filesystem\Port;
 
-use Fluxlabs\FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
-use Fluxlabs\FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
-use Fluxlabs\FluxScormPlayerApi\Adapter\MetadataStorage\MetadataDto;
-use Fluxlabs\FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
-use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\DeleteScormPackageCommand;
-use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\GetScormPackageAssetPathCommand;
-use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\GetScormPackageMetadataCommand;
-use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command\UploadScormPackageCommand;
+use FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
+use FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
+use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataDto;
+use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
+use FluxScormPlayerApi\Channel\Filesystem\Command\DeleteScormPackageCommand;
+use FluxScormPlayerApi\Channel\Filesystem\Command\GetScormPackageAssetPathCommand;
+use FluxScormPlayerApi\Channel\Filesystem\Command\GetScormPackageMetadataCommand;
+use FluxScormPlayerApi\Channel\Filesystem\Command\UploadScormPackageCommand;
 
 class FilesystemService
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Command;
+namespace FluxScormPlayerApi\Channel\Filesystem\Command;
 
-use Fluxlabs\FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
-use Fluxlabs\FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
-use Fluxlabs\FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
+use FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
+use FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
+use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
 
 class DeleteScormPackageCommand
 {

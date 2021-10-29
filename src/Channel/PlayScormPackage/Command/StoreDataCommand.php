@@ -1,9 +1,9 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Command;
+namespace FluxScormPlayerApi\Channel\PlayScormPackage\Command;
 
-use Fluxlabs\FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
-use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
+use FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
+use FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
 
 class StoreDataCommand
 {

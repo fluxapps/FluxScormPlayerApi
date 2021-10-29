@@ -1,11 +1,11 @@
 <?php
 
-namespace Fluxlabs\FluxScormPlayerApi\Adapter\Api;
+namespace FluxScormPlayerApi\Adapter\Api;
 
-use Fluxlabs\FluxScormPlayerApi\Adapter\Config\Config;
-use Fluxlabs\FluxScormPlayerApi\Adapter\Config\EnvConfig;
-use Fluxlabs\FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
-use Fluxlabs\FluxScormPlayerApi\Channel\PlayScormPackage\Port\PlayScormPackageService;
+use FluxScormPlayerApi\Adapter\Config\Config;
+use FluxScormPlayerApi\Adapter\Config\EnvConfig;
+use FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
+use FluxScormPlayerApi\Channel\PlayScormPackage\Port\PlayScormPackageService;
 
 class Api
 {
