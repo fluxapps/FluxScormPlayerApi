@@ -2,6 +2,7 @@
 
 namespace FluxScormPlayerApi\Channel\PlayScormPackage\Command;
 
+use FluxRestApi\Body\BodyType;
 use FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
 
 class PlayScormPackageCommand
@@ -37,7 +38,7 @@ class PlayScormPackageCommand
                 "autocommitSeconds"     => 30,
                 "lmsCommitUrl"          => "data/" . $id . "/" . $user_id,
                 "dataCommitFormat"      => "json",
-                "commitRequestDataType" => "application/json",
+                "commitRequestDataType" => BodyType::JSON,
                 "autoProgress"          => false,
                 "logLevel"              => 1,
                 "mastery_override"      => false,
