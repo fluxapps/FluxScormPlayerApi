@@ -16,7 +16,7 @@ RUN (mkdir -p /tmp/scorm-again && cd /tmp/scorm-again && wget -O - https://githu
 
 ENTRYPOINT ["/FluxScormPlayerApi/bin/entrypoint.php"]
 
-RUN composer install -d /FluxScormPlayerApi --no-dev
+RUN /FluxScormPlayerApi/bin/build.sh
 
 VOLUME /scorm
 
