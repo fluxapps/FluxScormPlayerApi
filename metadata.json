@@ -1,0 +1,10 @@
+{
+  "description": "Play scorm modules",
+  "keywords": [
+    "module",
+    "play",
+    "player",
+    "scorm"
+  ],
+  "homepage": "https://github.com/fluxapps/FluxScormPlayerApi"
+}
