@@ -2,27 +2,39 @@
 
 namespace FluxScormPlayerApi;
 
-if (version_compare(PHP_VERSION, ($min_php_version = "8.0"), "<")) {
-    die(__NAMESPACE__ . " needs at least PHP " . $min_php_version);
-}
-
-foreach (["curl", "json", "mongodb", "simplexml", "swoole", "zip"] as $ext) {
-    if (!extension_loaded($ext)) {
-        die(__NAMESPACE__ . " needs PHP ext " . $ext);
-    }
-}
-
 require_once __DIR__ . "/../libs/FluxRestApi/autoload.php";
 
-spl_autoload_register(function (string $class) : void {
-    if (str_starts_with($class, "MongoDB\\")) {
-        require_once __DIR__ . "/../libs/mongo-php-library/src" . str_replace("\\", "/", substr($class, strlen("MongoDB"))) . ".php";
-    }
-});
-require_once __DIR__ . "/../libs/mongo-php-library/src/functions.php";
+use FluxAutoloadApi\Adapter\Autoload\ComposerAutoload;
+use FluxAutoloadApi\Adapter\Autoload\PhpExtChecker;
+use FluxAutoloadApi\Adapter\Autoload\PhpVersionChecker;
+use FluxAutoloadApi\Adapter\Autoload\Psr4Autoload;
 
-spl_autoload_register(function (string $class) : void {
-    if (str_starts_with($class, __NAMESPACE__ . "\\")) {
-        require_once __DIR__ . str_replace("\\", "/", substr($class, strlen(__NAMESPACE__))) . ".php";
-    }
-});
+PhpVersionChecker::new(
+    ">=8.0",
+    __NAMESPACE__
+)
+    ->check();
+PhpExtChecker::new(
+    [
+        "curl",
+        "json",
+        "mongodb",
+        "simplexml",
+        "swoole",
+        "zip"
+    ],
+    __NAMESPACE__
+)
+    ->check();
+
+Psr4Autoload::new(
+    [
+        __NAMESPACE__ => __DIR__
+    ]
+)
+    ->autoload();
+
+ComposerAutoload::new(
+    __DIR__ . "/../libs/mongo-php-library"
+)
+    ->autoload();
