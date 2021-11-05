@@ -3,11 +3,11 @@
 namespace FluxScormPlayerApi\Adapter\Route;
 
 use FluxRestApi\Body\HtmlBodyDto;
-use FluxRestApi\Method\Method;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
-use FluxRestApi\Status\Status;
+use FluxRestBaseApi\Method\Method;
+use FluxRestBaseApi\Status\Status;
 use FluxScormPlayerApi\Adapter\Api\Api;
 
 class PlayRoute implements Route

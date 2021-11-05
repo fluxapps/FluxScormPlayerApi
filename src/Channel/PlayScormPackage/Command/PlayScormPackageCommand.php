@@ -2,7 +2,7 @@
 
 namespace FluxScormPlayerApi\Channel\PlayScormPackage\Command;
 
-use FluxRestApi\Body\BodyType;
+use FluxRestBaseApi\Body\BodyType;
 use FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
 
 class PlayScormPackageCommand
