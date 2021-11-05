@@ -2,9 +2,9 @@
 
 namespace FluxScormPlayerApi\Adapter\DataStorage;
 
-use FluxRestApi\Body\BodyType;
-use FluxRestApi\Header\Header;
-use FluxRestApi\Method\Method;
+use FluxRestBaseApi\Body\BodyType;
+use FluxRestBaseApi\Header\Header;
+use FluxRestBaseApi\Method\Method;
 use FluxScormPlayerApi\Adapter\Config\ExternalApiConfigDto;
 
 class ExternalApiDataStorage implements DataStorage

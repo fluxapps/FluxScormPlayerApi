@@ -2,10 +2,10 @@
 
 namespace FluxScormPlayerApi\Adapter\Route;
 
-use FluxRestApi\Method\Method;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
+use FluxRestBaseApi\Method\Method;
 use FluxScormPlayerApi\Adapter\Api\Api;
 
 class DeleteRoute implements Route

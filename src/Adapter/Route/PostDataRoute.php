@@ -2,14 +2,14 @@
 
 namespace FluxScormPlayerApi\Adapter\Route;
 
-use FluxRestApi\Body\BodyType;
 use FluxRestApi\Body\JsonBodyDto;
 use FluxRestApi\Body\TextBodyDto;
-use FluxRestApi\Method\Method;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
-use FluxRestApi\Status\Status;
+use FluxRestBaseApi\Body\BodyType;
+use FluxRestBaseApi\Method\Method;
+use FluxRestBaseApi\Status\Status;
 use FluxScormPlayerApi\Adapter\Api\Api;
 
 class PostDataRoute implements Route
