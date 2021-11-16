@@ -1,4 +1,4 @@
-# FluxScormPlayerApi
+# flux-scorm-player-api
 
 ## Environment variables
 
