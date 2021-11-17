@@ -1,10 +1,20 @@
 {
   "description": "Play scorm modules",
   "keywords": [
+    "alpine",
+    "api",
+    "docker",
+    "learn",
+    "learning",
     "module",
+    "mongo",
+    "mongodb",
+    "php",
     "play",
     "player",
-    "scorm"
+    "rest",
+    "scorm",
+    "swoole"
   ],
   "homepage": "https://github.com/fluxapps/flux-scorm-player-api"
 }
