@@ -1,6 +1,6 @@
 {
   "description": "Play scorm modules",
-  "keywords": [
+  "topics": [
     "alpine",
     "api",
     "docker",
