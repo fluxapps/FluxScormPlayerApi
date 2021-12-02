@@ -15,17 +15,17 @@ use MongoDB\Database;
 class EnvConfig implements Config
 {
 
-    private static ?self $instance = null;
-    private ?Collection $data_collection = null;
-    private ?DataStorage $data_storage = null;
-    private ?DataStorageConfigDto $data_storage_config = null;
-    private ?Database $database = null;
-    private ?DatabaseConfigDto $database_config = null;
-    private ?ExternalApiConfigDto $external_api_config = null;
-    private ?FilesystemConfigDto $filesystem_config = null;
-    private ?Collection $metadata_collection = null;
-    private ?MetadataStorage $metadata_storage = null;
-    private ?ServerConfigDto $server_config = null;
+    private static self $instance;
+    private readonly Collection $data_collection;
+    private readonly DataStorage $data_storage;
+    private readonly DataStorageConfigDto $data_storage_config;
+    private readonly Database $database;
+    private readonly DatabaseConfigDto $database_config;
+    private readonly ExternalApiConfigDto $external_api_config;
+    private readonly FilesystemConfigDto $filesystem_config;
+    private readonly Collection $metadata_collection;
+    private readonly MetadataStorage $metadata_storage;
+    private readonly ServerConfigDto $server_config;
 
 
     public static function new() : static
@@ -39,20 +39,20 @@ class EnvConfig implements Config
     public function getDataStorage() : DataStorage
     {
         switch ($this->getDataStorageConfig()->getType()) {
-            case DataStorageConfigDto::TYPE_DATABASE:
+            case DataStorageConfigType::DATABASE:
                 $this->data_storage ??= DatabaseDataStorage::new(
                     $this->getDataCollection()
                 );
                 break;
 
-            case DataStorageConfigDto::TYPE_EXTERNAL_API:
+            case DataStorageConfigType::EXTERNAL_API:
                 $this->data_storage ??= ExternalApiDataStorage::new(
                     $this->getExternalApiConfig()
                 );
                 break;
 
             default:
-                throw new Exception("Unknown data storage type " . $this->getDataStorageConfig()->getType());
+                throw new Exception("Unknown data storage type " . $this->getDataStorageConfig()->getType()->value);
         }
 
         return $this->data_storage;
@@ -62,7 +62,7 @@ class EnvConfig implements Config
     public function getDataStorageConfig() : DataStorageConfigDto
     {
         $this->data_storage_config ??= DataStorageConfigDto::new(
-            $_ENV["FLUX_SCORM_PLAYER_API_DATA_STORAGE_TYPE"] ?? null
+            ($type = $_ENV["FLUX_SCORM_PLAYER_API_DATA_STORAGE_TYPE"] ?? null) !== null ? DataStorageConfigType::from($type) : null
         );
 
         return $this->data_storage_config;

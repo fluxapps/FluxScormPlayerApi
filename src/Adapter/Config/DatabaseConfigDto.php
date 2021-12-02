@@ -5,11 +5,11 @@ namespace FluxScormPlayerApi\Adapter\Config;
 class DatabaseConfigDto
 {
 
-    private string $database;
-    private string $host;
-    private string $password;
-    private int $port;
-    private string $user;
+    private readonly string $database;
+    private readonly string $host;
+    private readonly string $password;
+    private readonly int $port;
+    private readonly string $user;
 
 
     public static function new(string $password, ?string $host = null, ?int $port = null, ?string $user = null, ?string $database = null) : static

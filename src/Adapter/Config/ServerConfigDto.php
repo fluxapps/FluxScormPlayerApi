@@ -5,11 +5,11 @@ namespace FluxScormPlayerApi\Adapter\Config;
 class ServerConfigDto
 {
 
-    private ?string $https_cert = null;
-    private ?string $https_key = null;
-    private string $listen;
-    private int $max_upload_size;
-    private int $port;
+    private readonly ?string $https_cert;
+    private readonly ?string $https_key;
+    private readonly string $listen;
+    private readonly int $max_upload_size;
+    private readonly int $port;
 
 
     public static function new(?string $https_cert = null, ?string $https_key = null, ?string $listen = null, ?int $port = null, ?int $max_upload_size = null) : static

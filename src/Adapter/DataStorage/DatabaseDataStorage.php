@@ -7,7 +7,7 @@ use MongoDB\Collection;
 class DatabaseDataStorage implements DataStorage
 {
 
-    private Collection $collection;
+    private readonly Collection $collection;
 
 
     public static function new(Collection $collection) : static

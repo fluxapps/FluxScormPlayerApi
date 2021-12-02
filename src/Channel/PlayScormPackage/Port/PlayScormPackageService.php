@@ -12,8 +12,8 @@ use FluxScormPlayerApi\Channel\PlayScormPackage\Command\StoreDataCommand;
 class PlayScormPackageService
 {
 
-    private DataStorage $data_storage;
-    private FilesystemService $filesystem;
+    private readonly DataStorage $data_storage;
+    private readonly FilesystemService $filesystem;
 
 
     public static function new(FilesystemService $filesystem, DataStorage $data_storage) : static

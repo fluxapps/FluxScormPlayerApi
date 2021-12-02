@@ -10,9 +10,9 @@ use FluxScormPlayerApi\Channel\PlayScormPackage\Port\PlayScormPackageService;
 class Api
 {
 
-    private Config $config;
-    private ?FilesystemService $filesystem = null;
-    private ?PlayScormPackageService $play_scorm_package = null;
+    private readonly Config $config;
+    private readonly FilesystemService $filesystem;
+    private readonly PlayScormPackageService $play_scorm_package;
 
 
     public static function new(?Config $config = null) : static

@@ -7,7 +7,7 @@ use FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
 class GetScormPackageAssetPathCommand
 {
 
-    private FilesystemConfigDto $filesystem_config;
+    private readonly FilesystemConfigDto $filesystem_config;
 
 
     public static function new(FilesystemConfigDto $filesystem_config) : static

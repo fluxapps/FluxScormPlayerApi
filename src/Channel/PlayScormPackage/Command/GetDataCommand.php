@@ -8,8 +8,8 @@ use FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
 class GetDataCommand
 {
 
-    private DataStorage $data_storage;
-    private FilesystemService $filesystem;
+    private readonly DataStorage $data_storage;
+    private readonly FilesystemService $filesystem;
 
 
     public static function new(FilesystemService $filesystem, DataStorage $data_storage) : static

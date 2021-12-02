@@ -2,13 +2,13 @@
 
 namespace FluxScormPlayerApi\Channel\PlayScormPackage\Command;
 
-use FluxRestBaseApi\Body\BodyType;
+use FluxRestBaseApi\Body\DefaultBodyType;
 use FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
 
 class PlayScormPackageCommand
 {
 
-    private FilesystemService $filesystem;
+    private readonly FilesystemService $filesystem;
 
 
     public static function new(FilesystemService $filesystem) : static
@@ -38,7 +38,7 @@ class PlayScormPackageCommand
                 "autocommitSeconds"     => 30,
                 "lmsCommitUrl"          => "data/" . $id . "/" . $user_id,
                 "dataCommitFormat"      => "json",
-                "commitRequestDataType" => BodyType::JSON,
+                "commitRequestDataType" => DefaultBodyType::JSON->value,
                 "autoProgress"          => false,
                 "logLevel"              => 1,
                 "mastery_override"      => false,
