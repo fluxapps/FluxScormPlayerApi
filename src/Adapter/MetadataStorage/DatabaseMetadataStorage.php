@@ -7,7 +7,7 @@ use MongoDB\Collection;
 class DatabaseMetadataStorage implements MetadataStorage
 {
 
-    private Collection $collection;
+    private readonly Collection $collection;
 
 
     public static function new(Collection $collection) : static
@@ -41,7 +41,7 @@ class DatabaseMetadataStorage implements MetadataStorage
         return MetadataDto::new(
             $document["title"],
             $document["entrypoint"],
-            $document["type"]
+            MetadataType::from($document["type"])
         );
     }
 
@@ -54,7 +54,7 @@ class DatabaseMetadataStorage implements MetadataStorage
             "scorm_id"   => $scorm_id,
             "title"      => $metadata->getTitle(),
             "entrypoint" => $metadata->getEntrypoint(),
-            "type"       => $metadata->getType()
+            "type"       => $metadata->getType()->value
         ], ["upsert" => true]);
     }
 }

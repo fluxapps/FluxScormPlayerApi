@@ -5,15 +5,12 @@ namespace FluxScormPlayerApi\Adapter\MetadataStorage;
 class MetadataDto
 {
 
-    const TYPE_1_2 = "1_2";
-    const TYPE_2004 = "2004";
-    const TYPE_AAIC = "aaic";
-    private string $entrypoint;
-    private string $title;
-    private string $type;
+    private readonly string $entrypoint;
+    private readonly string $title;
+    private readonly MetadataType $type;
 
 
-    public static function new(string $title, string $entrypoint, string $type) : static
+    public static function new(string $title, string $entrypoint, MetadataType $type) : static
     {
         $dto = new static();
 
@@ -37,7 +34,7 @@ class MetadataDto
     }
 
 
-    public function getType() : string
+    public function getType() : MetadataType
     {
         return $this->type;
     }

@@ -6,13 +6,14 @@ use Exception;
 use FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataDto;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
+use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataType;
 use ZipArchive;
 
 class UploadScormPackageCommand
 {
 
-    private FilesystemConfigDto $filesystem_config;
-    private MetadataStorage $metadata_storage;
+    private readonly FilesystemConfigDto $filesystem_config;
+    private readonly MetadataStorage $metadata_storage;
 
 
     public static function new(FilesystemConfigDto $filesystem_config, MetadataStorage $metadata_storage) : static
@@ -39,13 +40,13 @@ class UploadScormPackageCommand
 
         switch ($manifest["metadata"]["schemaversion"]) {
             case "1.2":
-                $type = MetadataDto::TYPE_1_2;
+                $type = MetadataType::_1_2;
                 break;
 
             case "CAM 1.3":
             case "2004 3rd Edition":
             case "2004 4rd Edition":
-                $type = MetadataDto::TYPE_2004;
+                $type = MetadataType::_2004;
                 break;
 
             default:

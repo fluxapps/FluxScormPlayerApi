@@ -2,15 +2,16 @@
 
 namespace FluxScormPlayerApi\Adapter\DataStorage;
 
-use FluxRestBaseApi\Body\BodyType;
-use FluxRestBaseApi\Header\Header;
+use FluxRestBaseApi\Body\DefaultBodyType;
+use FluxRestBaseApi\Header\DefaultHeader;
+use FluxRestBaseApi\Method\DefaultMethod;
 use FluxRestBaseApi\Method\Method;
 use FluxScormPlayerApi\Adapter\Config\ExternalApiConfigDto;
 
 class ExternalApiDataStorage implements DataStorage
 {
 
-    private ExternalApiConfigDto $external_api_config;
+    private readonly ExternalApiConfigDto $external_api_config;
 
 
     public static function new(ExternalApiConfigDto $external_api_config) : static
@@ -29,7 +30,7 @@ class ExternalApiDataStorage implements DataStorage
             $this->external_api_config->getDeleteDataUrl(),
             $scorm_id,
             null,
-            Method::DELETE
+            DefaultMethod::DELETE
         );
     }
 
@@ -50,15 +51,18 @@ class ExternalApiDataStorage implements DataStorage
             $this->external_api_config->getStoreDataUrl(),
             $scorm_id,
             $user_id,
-            Method::POST,
+            DefaultMethod::POST,
             $data
         );
     }
 
 
-    private function request(string $url, string $scorm_id, ?string $user_id = null, ?string $method = Method::GET, ?object $data = null) : ?object
+    private function request(string $url, string $scorm_id, ?string $user_id = null, ?Method $method = null, ?object $data = null) : ?object
     {
+        $method = $method ?? DefaultMethod::GET;
+
         $curl = null;
+
         try {
             $placeholders = [
                 "scorm_id" => $scorm_id
@@ -72,20 +76,20 @@ class ExternalApiDataStorage implements DataStorage
             $curl = curl_init($url);
 
             $headers = [
-                Header::USER_AGENT => "FluxScormPlayerApi"
+                DefaultHeader::USER_AGENT->value => "FluxScormPlayerApi"
             ];
 
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method->value);
 
             if ($data !== null) {
                 curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data, JSON_UNESCAPED_SLASHES));
-                $headers[Header::CONTENT_TYPE] = BodyType::JSON;
+                $headers[DefaultHeader::CONTENT_TYPE->value] = DefaultBodyType::JSON->value;
             }
 
-            $return = $method === Method::GET;
+            $return = $method === DefaultMethod::GET;
             if ($return) {
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                $headers[Header::ACCEPT] = BodyType::JSON;
+                $headers[DefaultHeader::ACCEPT->value] = DefaultBodyType::JSON->value;
             }
 
             curl_setopt($curl, CURLOPT_HTTPHEADER, array_map(fn(string $key, string $value) : string => $key . ": " . $value, array_keys($headers), $headers));

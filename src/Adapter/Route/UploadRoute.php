@@ -7,15 +7,16 @@ use FluxRestApi\Body\TextBodyDto;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
-use FluxRestBaseApi\Body\BodyType;
+use FluxRestBaseApi\Body\DefaultBodyType;
+use FluxRestBaseApi\Method\DefaultMethod;
 use FluxRestBaseApi\Method\Method;
-use FluxRestBaseApi\Status\Status;
+use FluxRestBaseApi\Status\DefaultStatus;
 use FluxScormPlayerApi\Adapter\Api\Api;
 
 class UploadRoute implements Route
 {
 
-    private Api $api;
+    private readonly Api $api;
 
 
     public static function new(Api $api) : static
@@ -31,7 +32,7 @@ class UploadRoute implements Route
     public function getDocuRequestBodyTypes() : ?array
     {
         return [
-            BodyType::FORM_DATA
+            DefaultBodyType::FORM_DATA
         ];
     }
 
@@ -42,9 +43,9 @@ class UploadRoute implements Route
     }
 
 
-    public function getMethod() : string
+    public function getMethod() : Method
     {
-        return Method::POST;
+        return DefaultMethod::POST;
     }
 
 
@@ -61,7 +62,7 @@ class UploadRoute implements Route
                 TextBodyDto::new(
                     "No form data body"
                 ),
-                Status::_400
+                DefaultStatus::_400
             );
         }
 

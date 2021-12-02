@@ -9,9 +9,9 @@ use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
 class DeleteScormPackageCommand
 {
 
-    private DataStorage $data_storage;
-    private FilesystemConfigDto $filesystem_config;
-    private MetadataStorage $metadata_storage;
+    private readonly DataStorage $data_storage;
+    private readonly FilesystemConfigDto $filesystem_config;
+    private readonly MetadataStorage $metadata_storage;
 
 
     public static function new(FilesystemConfigDto $filesystem_config, MetadataStorage $metadata_storage, DataStorage $data_storage) : static

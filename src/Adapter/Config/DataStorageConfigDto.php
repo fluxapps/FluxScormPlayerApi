@@ -5,22 +5,20 @@ namespace FluxScormPlayerApi\Adapter\Config;
 class DataStorageConfigDto
 {
 
-    const TYPE_DATABASE = "database";
-    const TYPE_EXTERNAL_API = "external_api";
-    private string $type;
+    private readonly DataStorageConfigType $type;
 
 
-    public static function new(?string $type = null) : static
+    public static function new(?DataStorageConfigType $type = null) : static
     {
         $dto = new static();
 
-        $dto->type = $type ?? static::TYPE_DATABASE;
+        $dto->type = $type ?? DataStorageConfigType::DATABASE;
 
         return $dto;
     }
 
 
-    public function getType() : string
+    public function getType() : DataStorageConfigType
     {
         return $this->type;
     }

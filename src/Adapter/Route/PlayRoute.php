@@ -6,14 +6,15 @@ use FluxRestApi\Body\HtmlBodyDto;
 use FluxRestApi\Request\RequestDto;
 use FluxRestApi\Response\ResponseDto;
 use FluxRestApi\Route\Route;
+use FluxRestBaseApi\Method\DefaultMethod;
 use FluxRestBaseApi\Method\Method;
-use FluxRestBaseApi\Status\Status;
+use FluxRestBaseApi\Status\DefaultStatus;
 use FluxScormPlayerApi\Adapter\Api\Api;
 
 class PlayRoute implements Route
 {
 
-    private Api $api;
+    private readonly Api $api;
 
 
     public static function new(Api $api) : static
@@ -38,9 +39,9 @@ class PlayRoute implements Route
     }
 
 
-    public function getMethod() : string
+    public function getMethod() : Method
     {
-        return Method::GET;
+        return DefaultMethod::GET;
     }
 
 
@@ -70,7 +71,7 @@ class PlayRoute implements Route
         } else {
             return ResponseDto::new(
                 null,
-                Status::_403
+                DefaultStatus::_403
             );
         }
     }
