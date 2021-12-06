@@ -28,7 +28,7 @@ class DeleteScormPackageCommand
 
     public function deleteScormPackage(string $id) : void
     {
-        if (file_exists($path = $this->filesystem_config->getFolder() . "/" . $id)) {
+        if (file_exists($path = $this->filesystem_config->folder . "/" . $id)) {
             exec("rm -rf " . escapeshellarg($path));
         }
 

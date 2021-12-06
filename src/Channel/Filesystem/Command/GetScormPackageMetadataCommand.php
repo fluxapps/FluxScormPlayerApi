@@ -26,7 +26,7 @@ class GetScormPackageMetadataCommand
 
     public function getScormPackageMetadata(string $id) : ?MetadataDto
     {
-        if (!file_exists($this->filesystem_config->getFolder() . "/" . $id)) {
+        if (!file_exists($this->filesystem_config->folder . "/" . $id)) {
             return null;
         }
 

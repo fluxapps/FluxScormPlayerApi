@@ -32,7 +32,7 @@ class PlayScormPackageCommand
         }
 
         $config = [
-            "type"         => $metadata->getType(),
+            "type"         => $metadata->type,
             "api_settings" => [
                 "autocommit"            => true,
                 "autocommitSeconds"     => 30,
@@ -51,9 +51,9 @@ class PlayScormPackageCommand
 
         $placeholders = [
             "config"     => base64_encode(json_encode($config, JSON_UNESCAPED_SLASHES)),
-            "entrypoint" => $metadata->getEntrypoint(),
+            "entrypoint" => $metadata->entrypoint,
             "id"         => $id,
-            "title"      => $metadata->getTitle()
+            "title"      => $metadata->title
         ];
 
         $html = preg_replace_callback("/{([a-z_]+)}/", fn(array $matches) : string => htmlspecialchars($placeholders[$matches[1]]), $html);
