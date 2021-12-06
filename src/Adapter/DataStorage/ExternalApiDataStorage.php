@@ -27,7 +27,7 @@ class ExternalApiDataStorage implements DataStorage
     public function deleteData(string $scorm_id) : void
     {
         $this->request(
-            $this->external_api_config->getDeleteDataUrl(),
+            $this->external_api_config->delete_data_url,
             $scorm_id,
             null,
             DefaultMethod::DELETE
@@ -38,7 +38,7 @@ class ExternalApiDataStorage implements DataStorage
     public function getData(string $scorm_id, string $user_id) : ?object
     {
         return $this->request(
-            $this->external_api_config->getGetDataUrl(),
+            $this->external_api_config->get_data_url,
             $scorm_id,
             $user_id
         );
@@ -48,7 +48,7 @@ class ExternalApiDataStorage implements DataStorage
     public function storeData(string $scorm_id, string $user_id, object $data) : void
     {
         $this->request(
-            $this->external_api_config->getStoreDataUrl(),
+            $this->external_api_config->store_data_url,
             $scorm_id,
             $user_id,
             DefaultMethod::POST,

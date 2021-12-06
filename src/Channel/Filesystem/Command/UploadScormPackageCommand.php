@@ -29,7 +29,7 @@ class UploadScormPackageCommand
 
     public function uploadScormPackage(string $id, string $title, string $file) : void
     {
-        $path = $this->filesystem_config->getFolder() . "/" . $id;
+        $path = $this->filesystem_config->folder . "/" . $id;
 
         $this->extractZipFile(
             $file,

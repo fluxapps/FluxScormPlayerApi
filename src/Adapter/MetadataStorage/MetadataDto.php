@@ -5,9 +5,9 @@ namespace FluxScormPlayerApi\Adapter\MetadataStorage;
 class MetadataDto
 {
 
-    private readonly string $entrypoint;
-    private readonly string $title;
-    private readonly MetadataType $type;
+    public readonly string $entrypoint;
+    public readonly string $title;
+    public readonly MetadataType $type;
 
 
     public static function new(string $title, string $entrypoint, MetadataType $type) : static
@@ -19,23 +19,5 @@ class MetadataDto
         $dto->type = $type;
 
         return $dto;
-    }
-
-
-    public function getEntrypoint() : string
-    {
-        return $this->entrypoint;
-    }
-
-
-    public function getTitle() : string
-    {
-        return $this->title;
-    }
-
-
-    public function getType() : MetadataType
-    {
-        return $this->type;
     }
 }

@@ -22,7 +22,7 @@ class GetScormPackageAssetPathCommand
 
     public function getScormPackageAssetPath(string $id, string $path) : ?string
     {
-        $path = $this->filesystem_config->getFolder() . "/" . $id . "/" . $path;
+        $path = $this->filesystem_config->folder . "/" . $id . "/" . $path;
 
         if (!file_exists($path)) {
             return null;

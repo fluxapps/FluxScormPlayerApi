@@ -39,19 +39,19 @@ class Server
     public function init() : void
     {
         $options = [
-            "package_max_length" => $this->config->getServerConfig()->getMaxUploadSize()
+            "package_max_length" => $this->config->getServerConfig()->max_upload_size
         ];
         $sock_type = SWOOLE_TCP;
 
-        if ($this->config->getServerConfig()->getHttpsCert() !== null) {
+        if ($this->config->getServerConfig()->https_cert !== null) {
             $options += [
-                "ssl_cert_file" => $this->config->getServerConfig()->getHttpsCert(),
-                "ssl_key_file"  => $this->config->getServerConfig()->getHttpsKey()
+                "ssl_cert_file" => $this->config->getServerConfig()->https_cert,
+                "ssl_key_file"  => $this->config->getServerConfig()->https_key
             ];
             $sock_type += SWOOLE_SSL;
         }
 
-        $server = new SwooleServer($this->config->getServerConfig()->getListen(), $this->config->getServerConfig()->getPort(), SWOOLE_PROCESS, $sock_type);
+        $server = new SwooleServer($this->config->getServerConfig()->listen, $this->config->getServerConfig()->port, SWOOLE_PROCESS, $sock_type);
 
         $server->set($options);
 

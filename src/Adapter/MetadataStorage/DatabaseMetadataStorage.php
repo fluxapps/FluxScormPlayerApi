@@ -52,9 +52,9 @@ class DatabaseMetadataStorage implements MetadataStorage
             "scorm_id" => $scorm_id
         ], [
             "scorm_id"   => $scorm_id,
-            "title"      => $metadata->getTitle(),
-            "entrypoint" => $metadata->getEntrypoint(),
-            "type"       => $metadata->getType()->value
+            "title"      => $metadata->title,
+            "entrypoint" => $metadata->entrypoint,
+            "type"       => $metadata->type->value
         ], ["upsert" => true]);
     }
 }

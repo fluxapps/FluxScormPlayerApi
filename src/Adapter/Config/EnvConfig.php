@@ -38,7 +38,7 @@ class EnvConfig implements Config
 
     public function getDataStorage() : DataStorage
     {
-        switch ($this->getDataStorageConfig()->getType()) {
+        switch ($this->getDataStorageConfig()->type) {
             case DataStorageConfigType::DATABASE:
                 $this->data_storage ??= DatabaseDataStorage::new(
                     $this->getDataCollection()
@@ -52,7 +52,7 @@ class EnvConfig implements Config
                 break;
 
             default:
-                throw new Exception("Unknown data storage type " . $this->getDataStorageConfig()->getType()->value);
+                throw new Exception("Unknown data storage type " . $this->getDataStorageConfig()->type->value);
         }
 
         return $this->data_storage;
@@ -139,8 +139,8 @@ class EnvConfig implements Config
 
     private function getDatabase() : Database
     {
-        $this->database ??= (new Client("mongodb://" . $this->getDatabaseConfig()->getUser() . ":" . $this->getDatabaseConfig()->getPassword()
-            . "@" . $this->getDatabaseConfig()->getHost() . ":" . $this->getDatabaseConfig()->getPort()))->selectDatabase($this->getDatabaseConfig()->getDatabase());
+        $this->database ??= (new Client("mongodb://" . $this->getDatabaseConfig()->user . ":" . $this->getDatabaseConfig()->password . "@" . $this->getDatabaseConfig()->host . ":"
+            . $this->getDatabaseConfig()->port))->selectDatabase($this->getDatabaseConfig()->database);
 
         return $this->database;
     }

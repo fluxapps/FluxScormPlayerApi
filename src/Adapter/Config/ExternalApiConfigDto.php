@@ -5,9 +5,9 @@ namespace FluxScormPlayerApi\Adapter\Config;
 class ExternalApiConfigDto
 {
 
-    private readonly string $delete_data_url;
-    private readonly string $get_data_url;
-    private readonly string $store_data_url;
+    public readonly string $delete_data_url;
+    public readonly string $get_data_url;
+    public readonly string $store_data_url;
 
 
     public static function new(string $get_data_url, string $store_data_url, string $delete_data_url) : static
@@ -19,23 +19,5 @@ class ExternalApiConfigDto
         $dto->delete_data_url = $delete_data_url;
 
         return $dto;
-    }
-
-
-    public function getDeleteDataUrl() : string
-    {
-        return $this->delete_data_url;
-    }
-
-
-    public function getGetDataUrl() : string
-    {
-        return $this->get_data_url;
-    }
-
-
-    public function getStoreDataUrl() : string
-    {
-        return $this->store_data_url;
     }
 }

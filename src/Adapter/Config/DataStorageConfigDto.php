@@ -5,7 +5,7 @@ namespace FluxScormPlayerApi\Adapter\Config;
 class DataStorageConfigDto
 {
 
-    private readonly DataStorageConfigType $type;
+    public readonly DataStorageConfigType $type;
 
 
     public static function new(?DataStorageConfigType $type = null) : static
@@ -15,11 +15,5 @@ class DataStorageConfigDto
         $dto->type = $type ?? DataStorageConfigType::DATABASE;
 
         return $dto;
-    }
-
-
-    public function getType() : DataStorageConfigType
-    {
-        return $this->type;
     }
 }
