@@ -4,7 +4,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=scorm-player
       - MONGO_INITDB_ROOT_PASSWORD=...
-    image: mongo:5.0
+    image: mongo:latest
     volumes:
       - ./data/db:/data/db
   scorm-player-api:
