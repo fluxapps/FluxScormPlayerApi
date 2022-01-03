@@ -17,7 +17,7 @@ class DatabaseConfigDto
         $dto = new static();
 
         $dto->password = $password;
-        $dto->host = $host ?? "scorm-player-db";
+        $dto->host = $host ?? "scorm-player-database";
         $dto->port = $port ?? 27017;
         $dto->user = $user ?? "scorm-player";
         $dto->database = $database ?? "scorm-player";

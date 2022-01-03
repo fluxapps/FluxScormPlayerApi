@@ -10,8 +10,8 @@
 | FLUX_SCORM_PLAYER_API_SERVER_PORT | Listen port | 9501 |
 | FLUX_SCORM_PLAYER_API_SERVER_MAX_UPLOAD_SIZE | Maximal file upload size | 104857600 |
 | FLUX_SCORM_PLAYER_API_FILESYSTEM_FOLDER | Scorm directory | /scorm |
-| **FLUX_SCORM_PLAYER_API_DATABASE_PASSWORD** | MongoDB password | - |
-| FLUX_SCORM_PLAYER_API_DATABASE_HOST | MongoDB host | scorm-player-db |
+| **FLUX_SCORM_PLAYER_API_DATABASE_PASSWORD** | MongoDB password<br>Use *FLUX_SCORM_PLAYER_API_DATABASE_PASSWORD_FILE* for docker secrets | - |
+| FLUX_SCORM_PLAYER_API_DATABASE_HOST | MongoDB host | scorm-player-database |
 | FLUX_SCORM_PLAYER_API_DATABASE_PORT | MongoDB port | 27017 |
 | FLUX_SCORM_PLAYER_API_DATABASE_USER | MongoDB user name | scorm-player |
 | FLUX_SCORM_PLAYER_API_DATABASE_DATABASE | MongoDB database name | scorm-player |
