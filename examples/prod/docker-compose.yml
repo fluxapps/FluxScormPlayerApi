@@ -29,4 +29,4 @@ services:
       [- FLUX_SCORM_PLAYER_API_PORT=9501]
 secrets:
   database_scorm_player_password:
-    file: ./data/database_scorm_player_password
+    file: ./data/secrets/database_scorm_player_password

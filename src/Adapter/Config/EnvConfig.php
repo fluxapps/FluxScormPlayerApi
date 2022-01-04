@@ -73,7 +73,7 @@ class EnvConfig implements Config
     {
         $this->database_config ??= DatabaseConfigDto::new(
             ($_ENV["FLUX_SCORM_PLAYER_API_DATABASE_PASSWORD"] ?? null) ??
-            ($password_file = $_ENV["FLUX_SCORM_PLAYER_API_DATABASE_PASSWORD_FILE"] ?? null) !== null && file_exists($password_file) ? (file_get_contents($password_file) ?: "") : null,
+            (($password_file = $_ENV["FLUX_SCORM_PLAYER_API_DATABASE_PASSWORD_FILE"] ?? null) !== null && file_exists($password_file) ? (file_get_contents($password_file) ?: "") : null),
             $_ENV["FLUX_SCORM_PLAYER_API_DATABASE_HOST"] ?? null,
             $_ENV["FLUX_SCORM_PLAYER_API_DATABASE_PORT"] ?? null,
             $_ENV["FLUX_SCORM_PLAYER_API_DATABASE_USER"] ?? null,
