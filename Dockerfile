@@ -35,8 +35,9 @@ COPY . /flux-scorm-player-api
 
 ENTRYPOINT ["/flux-scorm-player-api/bin/entrypoint.php"]
 
-#USER www-data:www-data
-
+RUN mkdir -p /scorm && chown www-data:www-data -R /scorm
 VOLUME /scorm
+
+USER www-data:www-data
 
 EXPOSE 9501
