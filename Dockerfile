@@ -1,3 +1,4 @@
+ARG ALPINE_IMAGE=alpine:latest
 ARG FLUX_AUTOLOAD_API_IMAGE=docker-registry.fluxpublisher.ch/flux-autoload/api:latest
 ARG FLUX_REST_API_IMAGE=docker-registry.fluxpublisher.ch/flux-rest/api:latest
 ARG MONGODB_SOURCE_URL=https://pecl.php.net/get/mongodb
@@ -9,10 +10,18 @@ ARG SWOOLE_SOURCE_URL=https://github.com/swoole/swoole-src/archive/master.tar.gz
 FROM $FLUX_AUTOLOAD_API_IMAGE AS flux_autoload_api
 FROM $FLUX_REST_API_IMAGE AS flux_rest_api
 
-FROM $PHP_CLI_IMAGE
-ARG MONGODB_SOURCE_URL
+FROM $ALPINE_IMAGE AS build
 ARG MONGODBLIBRARY_SOURCE_URL
 ARG SCORMAGAIN_SOURCE_URL
+
+COPY --from=flux_autoload_api /flux-autoload-api /flux-scorm-player-api/libs/flux-autoload-api
+COPY --from=flux_rest_api /flux-rest-api /flux-scorm-player-api/libs/flux-rest-api
+RUN (mkdir -p /flux-scorm-player-api/libs/mongo-php-library && cd /flux-scorm-player-api/libs/mongo-php-library && wget -O - $MONGODBLIBRARY_SOURCE_URL | tar -xz --strip-components=1)
+RUN (mkdir -p /flux-scorm-player-api/libs/_temp_scorm-again && cd /flux-scorm-player-api/libs/_temp_scorm-again && wget -O - $SCORMAGAIN_SOURCE_URL | tar -xz --strip-components=1 && rm -rf ../scorm-again && mv dist ../scorm-again && rm -rf ../_temp_scorm-again)
+COPY . /flux-scorm-player-api
+
+FROM $PHP_CLI_IMAGE
+ARG MONGODB_SOURCE_URL
 ARG SWOOLE_SOURCE_URL
 
 LABEL org.opencontainers.image.source="https://github.com/fluxapps/flux-scorm-player-api"
@@ -27,17 +36,13 @@ RUN apk add --no-cache libstdc++ libzip && \
     docker-php-source delete && \
     apk del .build-deps
 
-COPY --from=flux_autoload_api /flux-autoload-api /flux-scorm-player-api/libs/flux-autoload-api
-COPY --from=flux_rest_api /flux-rest-api /flux-scorm-player-api/libs/flux-rest-api
-RUN (mkdir -p /flux-scorm-player-api/libs/mongo-php-library && cd /flux-scorm-player-api/libs/mongo-php-library && wget -O - $MONGODBLIBRARY_SOURCE_URL | tar -xz --strip-components=1)
-RUN (mkdir -p /flux-scorm-player-api/libs/_temp_scorm-again && cd /flux-scorm-player-api/libs/_temp_scorm-again && wget -O - $SCORMAGAIN_SOURCE_URL | tar -xz --strip-components=1 && rm -rf ../scorm-again && mv dist ../scorm-again && rm -rf ../_temp_scorm-again)
-COPY . /flux-scorm-player-api
-
-ENTRYPOINT ["/flux-scorm-player-api/bin/entrypoint.php"]
-
 RUN mkdir -p /scorm && chown www-data:www-data -R /scorm
 VOLUME /scorm
 
 USER www-data:www-data
 
 EXPOSE 9501
+
+ENTRYPOINT ["/flux-scorm-player-api/bin/entrypoint.php"]
+
+COPY --from=build /flux-scorm-player-api /flux-scorm-player-api
