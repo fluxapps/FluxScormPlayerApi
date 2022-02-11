@@ -2,6 +2,7 @@
 
 namespace FluxScormPlayerApi\Adapter\DataStorage;
 
+use Exception;
 use FluxRestBaseApi\Body\DefaultBodyType;
 use FluxRestBaseApi\Header\DefaultHeader;
 use FluxRestBaseApi\Method\DefaultMethod;
@@ -94,7 +95,13 @@ class ExternalApiDataStorage implements DataStorage
 
             curl_setopt($curl, CURLOPT_HTTPHEADER, array_map(fn(string $key, string $value) : string => $key . ": " . $value, array_keys($headers), $headers));
 
+            curl_setopt($curl, CURLOPT_FAILONERROR, true);
+
             $data = curl_exec($curl);
+
+            if (curl_errno($curl) !== 0) {
+                throw new Exception(curl_error($curl));
+            }
 
             if (!$return || empty($data) || empty($data = json_decode($data))) {
                 $data = null;
