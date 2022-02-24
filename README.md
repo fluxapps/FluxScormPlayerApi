@@ -5,7 +5,7 @@
 If you have permission issues in the scorm directory, you need to give the www-data user write permissions with the follow command like
 
 ```shell
-docker exec --user root:root %container_name% chown www-data:www-data -R /scorm
+docker exec -u root:root %container_name% chown www-data:www-data -R /scorm
 ```
 
 ## Environment variables
