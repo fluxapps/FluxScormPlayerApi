@@ -3,20 +3,33 @@
 namespace FluxScormPlayerApi\Adapter\DataStorage;
 
 use MongoDB\Collection;
+use MongoDB\Database;
 
 class DatabaseDataStorage implements DataStorage
 {
 
-    private readonly Collection $collection;
+    private function __construct(
+        private readonly Collection $collection
+    ) {
+
+    }
 
 
-    public static function new(Collection $collection) : static
-    {
-        $data_storage = new static();
+    public static function new(
+        Collection $collection
+    ) : static {
+        return new static(
+            $collection
+        );
+    }
 
-        $data_storage->collection = $collection;
 
-        return $data_storage;
+    public static function newFromDatabase(
+        Database $database
+    ) : static {
+        return static::new(
+            $database->selectCollection("data")
+        );
     }
 
 

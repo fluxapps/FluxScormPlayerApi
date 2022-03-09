@@ -1,21 +1,18 @@
 {
-  "description": "Play scorm modules",
-  "topics": [
-    "alpine",
-    "api",
-    "docker",
-    "learn",
-    "learning",
-    "module",
-    "mongo",
-    "mongodb",
-    "package",
-    "php",
-    "play",
-    "player",
-    "rest",
-    "scorm",
-    "swoole"
-  ],
-  "homepage": "https://github.com/fluxapps/flux-scorm-player-api"
+    "description": "Scorm Player Api for play scorm modules",
+    "topics": [
+        "api",
+        "learn",
+        "learning",
+        "library",
+        "module",
+        "mongo",
+        "mongodb",
+        "package",
+        "php",
+        "play",
+        "player",
+        "scorm"
+    ],
+    "homepage": "https://github.com/fluxapps/flux-scorm-player-api"
 }

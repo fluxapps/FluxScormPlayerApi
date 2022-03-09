@@ -1,22 +1,27 @@
 # flux-scorm-player-api
 
-## Permission issues
+Scorm Player Api for play scorm modules
 
-If you have permission issues in the scorm directory, you need to give the www-data user write permissions with the follow command like
+## Installation
 
-```shell
-docker exec -u root:root %container_name% chown www-data:www-data -R /scorm
+```dockerfile
+COPY --from=docker-registry.fluxpublisher.ch/flux-scorm-player/api:latest /flux-scorm-player-api /%path%/libs/flux-scorm-player-api
+```
+
+## Usage
+
+```php
+require_once __DIR__ . "/%path%/libs/flux-scorm-player-api/autoload.php";
+```
+
+```php
+ScormPlayerApi::new();
 ```
 
 ## Environment variables
 
 | Variable | Description | Default value |
 | -------- | ----------- | ------------- |
-| FLUX_SCORM_PLAYER_API_SERVER_HTTPS_CERT | Path to HTTPS certificate file<br>Set this will enable listen on HTTPS<br>Should be on a volume | - |
-| FLUX_SCORM_PLAYER_API_SERVER_HTTPS_KEY | Path to HTTPS key file<br>Should be on a volume | - |
-| FLUX_SCORM_PLAYER_API_SERVER_LISTEN | Listen IP | 0.0.0.0 |
-| FLUX_SCORM_PLAYER_API_SERVER_PORT | Listen port | 9501 |
-| FLUX_SCORM_PLAYER_API_SERVER_MAX_UPLOAD_SIZE | Maximal file upload size | 104857600 |
 | FLUX_SCORM_PLAYER_API_FILESYSTEM_FOLDER | Scorm directory | /scorm |
 | **FLUX_SCORM_PLAYER_API_DATABASE_PASSWORD** | MongoDB password<br>Use *FLUX_SCORM_PLAYER_API_DATABASE_PASSWORD_FILE* for docker secrets | - |
 | FLUX_SCORM_PLAYER_API_DATABASE_HOST | MongoDB host | scorm-player-database |
@@ -30,6 +35,6 @@ docker exec -u root:root %container_name% chown www-data:www-data -R /scorm
 
 Minimal variables required to set are **bold**
 
-## Examples
+## Example
 
-[examples](examples)
+Look at [flux-scorm-player-rest-api](https://github.com/fluxapps/flux-scorm-player-rest-api)

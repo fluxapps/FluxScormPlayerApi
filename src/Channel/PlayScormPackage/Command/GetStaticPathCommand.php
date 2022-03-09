@@ -5,11 +5,15 @@ namespace FluxScormPlayerApi\Channel\PlayScormPackage\Command;
 class GetStaticPathCommand
 {
 
+    private function __construct()
+    {
+
+    }
+
+
     public static function new() : static
     {
-        $command = new static();
-
-        return $command;
+        return new static();
     }
 
 

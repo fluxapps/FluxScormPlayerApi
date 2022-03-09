@@ -14,20 +14,25 @@ use FluxScormPlayerApi\Channel\Filesystem\Command\UploadScormPackageCommand;
 class FilesystemService
 {
 
-    private readonly DataStorage $data_storage;
-    private readonly FilesystemConfigDto $filesystem_config;
-    private readonly MetadataStorage $metadata_storage;
+    private function __construct(
+        private readonly FilesystemConfigDto $filesystem_config,
+        private readonly MetadataStorage $metadata_storage,
+        private readonly DataStorage $data_storage
+    ) {
+
+    }
 
 
-    public static function new(FilesystemConfigDto $filesystem_config, MetadataStorage $metadata_storage, DataStorage $data_storage) : static
-    {
-        $service = new static();
-
-        $service->filesystem_config = $filesystem_config;
-        $service->metadata_storage = $metadata_storage;
-        $service->data_storage = $data_storage;
-
-        return $service;
+    public static function new(
+        FilesystemConfigDto $filesystem_config,
+        MetadataStorage $metadata_storage,
+        DataStorage $data_storage
+    ) : static {
+        return new static(
+            $filesystem_config,
+            $metadata_storage,
+            $data_storage
+        );
     }
 
 

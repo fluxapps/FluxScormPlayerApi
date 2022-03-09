@@ -3,20 +3,33 @@
 namespace FluxScormPlayerApi\Adapter\MetadataStorage;
 
 use MongoDB\Collection;
+use MongoDB\Database;
 
 class DatabaseMetadataStorage implements MetadataStorage
 {
 
-    private readonly Collection $collection;
+    private function __construct(
+        private readonly Collection $collection
+    ) {
+
+    }
 
 
-    public static function new(Collection $collection) : static
-    {
-        $metadata_storage = new static();
+    public static function new(
+        Collection $collection
+    ) : static {
+        return new static(
+            $collection
+        );
+    }
 
-        $metadata_storage->collection = $collection;
 
-        return $metadata_storage;
+    public static function newFromDatabase(
+        Database $database
+    ) : static {
+        return static::new(
+            $database->selectCollection("metadata")
+        );
     }
 
 

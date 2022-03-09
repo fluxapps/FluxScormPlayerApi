@@ -2,32 +2,31 @@
 
 namespace FluxScormPlayerApi\Adapter\Api;
 
-use FluxScormPlayerApi\Adapter\Config\Config;
-use FluxScormPlayerApi\Adapter\Config\EnvConfig;
 use FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
 use FluxScormPlayerApi\Channel\PlayScormPackage\Port\PlayScormPackageService;
 
-class Api
+class ScormPlayerApi
 {
 
-    private readonly Config $config;
-    private readonly FilesystemService $filesystem;
-    private readonly PlayScormPackageService $play_scorm_package;
+    private function __construct(
+        private readonly ScormPlayerApiConfigDto $scorm_player_api_config
+    ) {
+
+    }
 
 
-    public static function new(?Config $config = null) : static
-    {
-        $api = new static();
-
-        $api->config = $config ?? EnvConfig::new();
-
-        return $api;
+    public static function new(
+        ?ScormPlayerApiConfigDto $scorm_player_api_config = null
+    ) : static {
+        return new static(
+            $scorm_player_api_config ?? ScormPlayerApiConfigDto::newFromEnv()
+        );
     }
 
 
     public function deleteScormPackage(string $id) : void
     {
-        $this->getFilesystem()
+        $this->getFilesystemService()
             ->deleteScormPackage(
                 $id
             );
@@ -36,7 +35,7 @@ class Api
 
     public function getData(string $id, string $user_id) : ?object
     {
-        return $this->getPlayScormPackage()
+        return $this->getPlayScormPackageService()
             ->getData(
                 $id,
                 $user_id
@@ -46,7 +45,7 @@ class Api
 
     public function getScormPackageAssetPath(string $id, string $path) : ?string
     {
-        return $this->getFilesystem()
+        return $this->getFilesystemService()
             ->getScormPackageAssetPath(
                 $id,
                 $path
@@ -56,7 +55,7 @@ class Api
 
     public function getStaticPath(string $path) : ?string
     {
-        return $this->getPlayScormPackage()
+        return $this->getPlayScormPackageService()
             ->getStaticPath(
                 $path
             );
@@ -65,7 +64,7 @@ class Api
 
     public function playScormPackage(string $id, string $user_id) : ?string
     {
-        return $this->getPlayScormPackage()
+        return $this->getPlayScormPackageService()
             ->playScormPackage(
                 $id,
                 $user_id
@@ -75,7 +74,7 @@ class Api
 
     public function storeData(string $id, string $user_id, object $data) : ?object
     {
-        return $this->getPlayScormPackage()
+        return $this->getPlayScormPackageService()
             ->storeData(
                 $id,
                 $user_id,
@@ -86,7 +85,7 @@ class Api
 
     public function uploadScormPackage(string $id, string $title, string $file) : void
     {
-        $this->getFilesystem()
+        $this->getFilesystemService()
             ->uploadScormPackage(
                 $id,
                 $title,
@@ -95,25 +94,21 @@ class Api
     }
 
 
-    private function getFilesystem() : FilesystemService
+    private function getFilesystemService() : FilesystemService
     {
-        $this->filesystem ??= FilesystemService::new(
-            $this->config->getFilesystemConfig(),
-            $this->config->getMetadataStorage(),
-            $this->config->getDataStorage()
+        return FilesystemService::new(
+            $this->scorm_player_api_config->filesystem_config,
+            $this->scorm_player_api_config->metadata_storage,
+            $this->scorm_player_api_config->data_storage
         );
-
-        return $this->filesystem;
     }
 
 
-    private function getPlayScormPackage() : PlayScormPackageService
+    private function getPlayScormPackageService() : PlayScormPackageService
     {
-        $this->play_scorm_package ??= PlayScormPackageService::new(
-            $this->getFilesystem(),
-            $this->config->getDataStorage()
+        return PlayScormPackageService::new(
+            $this->getFilesystemService(),
+            $this->scorm_player_api_config->data_storage
         );
-
-        return $this->play_scorm_package;
     }
 }

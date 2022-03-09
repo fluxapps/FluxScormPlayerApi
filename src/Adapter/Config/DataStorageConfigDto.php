@@ -16,4 +16,12 @@ class DataStorageConfigDto
 
         return $dto;
     }
+
+
+    public static function newFromEnv() : static
+    {
+        return static::new(
+            ($type = $_ENV["FLUX_SCORM_PLAYER_API_DATA_STORAGE_TYPE"] ?? null) !== null ? DataStorageConfigType::from($type) : null
+        );
+    }
 }

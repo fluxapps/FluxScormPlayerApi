@@ -2,28 +2,31 @@
 
 namespace FluxScormPlayerApi\Channel\PlayScormPackage\Command;
 
-use FluxRestBaseApi\Body\DefaultBodyType;
 use FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
+use FluxScormPlayerApi\Libs\FluxRestBaseApi\Body\DefaultBodyType;
 
 class PlayScormPackageCommand
 {
 
-    private readonly FilesystemService $filesystem;
+    private function __construct(
+        private readonly FilesystemService $filesystem_service
+    ) {
+
+    }
 
 
-    public static function new(FilesystemService $filesystem) : static
-    {
-        $command = new static();
-
-        $command->filesystem = $filesystem;
-
-        return $command;
+    public static function new(
+        FilesystemService $filesystem_service
+    ) : static {
+        return new static(
+            $filesystem_service
+        );
     }
 
 
     public function playScormPackage(string $id, string $user_id) : ?string
     {
-        $metadata = $this->filesystem->getScormPackageMetadata(
+        $metadata = $this->filesystem_service->getScormPackageMetadata(
             $id
         );
 
