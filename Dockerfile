@@ -1,48 +1,37 @@
 ARG ALPINE_IMAGE=alpine:latest
 ARG FLUX_AUTOLOAD_API_IMAGE=docker-registry.fluxpublisher.ch/flux-autoload/api:latest
-ARG FLUX_REST_API_IMAGE=docker-registry.fluxpublisher.ch/flux-rest/api:latest
-ARG MONGODB_SOURCE_URL=https://pecl.php.net/get/mongodb
+ARG FLUX_NAMESPACE_CHANGER_IMAGE=docker-registry.fluxpublisher.ch/flux-namespace-changer:latest
+ARG FLUX_REST_BASE_API_IMAGE=docker-registry.fluxpublisher.ch/flux-rest/base-api:latest
 ARG MONGODBLIBRARY_SOURCE_URL=https://github.com/mongodb/mongo-php-library/archive/master.tar.gz
-ARG PHP_CLI_IMAGE=php:cli-alpine
 ARG SCORMAGAIN_SOURCE_URL=https://github.com/jcputney/scorm-again/archive/master.tar.gz
-ARG SWOOLE_SOURCE_URL=https://github.com/swoole/swoole-src/archive/master.tar.gz
 
 FROM $FLUX_AUTOLOAD_API_IMAGE AS flux_autoload_api
-FROM $FLUX_REST_API_IMAGE AS flux_rest_api
+FROM $FLUX_NAMESPACE_CHANGER_IMAGE AS flux_autoload_api_build
+ENV FLUX_NAMESPACE_CHANGER_FROM_NAMESPACE FluxAutoloadApi
+ENV FLUX_NAMESPACE_CHANGER_TO_NAMESPACE FluxScormPlayerApi\\Libs\\FluxAutoloadApi
+COPY --from=flux_autoload_api /flux-autoload-api /code
+RUN $FLUX_NAMESPACE_CHANGER_BIN
+
+FROM $FLUX_REST_BASE_API_IMAGE AS flux_rest_base_api
+FROM $FLUX_NAMESPACE_CHANGER_IMAGE AS flux_rest_base_api_build
+ENV FLUX_NAMESPACE_CHANGER_FROM_NAMESPACE FluxRestBaseApi
+ENV FLUX_NAMESPACE_CHANGER_TO_NAMESPACE FluxScormPlayerApi\\Libs\\FluxRestBaseApi
+COPY --from=flux_rest_base_api /flux-rest-base-api /code
+RUN $FLUX_NAMESPACE_CHANGER_BIN
 
 FROM $ALPINE_IMAGE AS build
 ARG MONGODBLIBRARY_SOURCE_URL
 ARG SCORMAGAIN_SOURCE_URL
 
-COPY --from=flux_autoload_api /flux-autoload-api /flux-scorm-player-api/libs/flux-autoload-api
-COPY --from=flux_rest_api /flux-rest-api /flux-scorm-player-api/libs/flux-rest-api
+COPY --from=flux_autoload_api_build /code /flux-scorm-player-api/libs/flux-autoload-api
+COPY --from=flux_rest_base_api_build /code /flux-scorm-player-api/libs/flux-rest-base-api
 RUN (mkdir -p /flux-scorm-player-api/libs/mongo-php-library && cd /flux-scorm-player-api/libs/mongo-php-library && wget -O - $MONGODBLIBRARY_SOURCE_URL | tar -xz --strip-components=1)
 RUN (mkdir -p /flux-scorm-player-api/libs/_temp_scorm-again && cd /flux-scorm-player-api/libs/_temp_scorm-again && wget -O - $SCORMAGAIN_SOURCE_URL | tar -xz --strip-components=1 && rm -rf ../scorm-again && mv dist ../scorm-again && rm -rf ../_temp_scorm-again)
 COPY . /flux-scorm-player-api
 
-FROM $PHP_CLI_IMAGE
-ARG MONGODB_SOURCE_URL
-ARG SWOOLE_SOURCE_URL
+FROM scratch
 
 LABEL org.opencontainers.image.source="https://github.com/fluxapps/flux-scorm-player-api"
 LABEL maintainer="fluxlabs <support@fluxlabs.ch> (https://fluxlabs.ch)"
-
-RUN apk add --no-cache libstdc++ libzip && \
-    apk add --no-cache --virtual .build-deps $PHPIZE_DEPS curl-dev libzip-dev openssl-dev && \
-    (mkdir -p /usr/src/php/ext/mongodb && cd /usr/src/php/ext/mongodb && wget -O - $MONGODB_SOURCE_URL | tar -xz --strip-components=1) && \
-    (mkdir -p /usr/src/php/ext/swoole && cd /usr/src/php/ext/swoole && wget -O - $SWOOLE_SOURCE_URL | tar -xz --strip-components=1) && \
-    docker-php-ext-configure swoole --enable-openssl --enable-swoole-curl --enable-swoole-json && \
-    docker-php-ext-install -j$(nproc) mongodb swoole zip && \
-    docker-php-source delete && \
-    apk del .build-deps
-
-RUN mkdir -p /scorm && chown www-data:www-data -R /scorm
-VOLUME /scorm
-
-USER www-data:www-data
-
-EXPOSE 9501
-
-ENTRYPOINT ["/flux-scorm-player-api/bin/entrypoint.php"]
 
 COPY --from=build /flux-scorm-player-api /flux-scorm-player-api

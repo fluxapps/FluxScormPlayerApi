@@ -5,15 +5,26 @@ namespace FluxScormPlayerApi\Adapter\Config;
 class FilesystemConfigDto
 {
 
-    public readonly string $folder;
+    private function __construct(
+        public readonly string $folder
+    ) {
+
+    }
 
 
-    public static function new(?string $folder = null) : static
+    public static function new(
+        ?string $folder = null
+    ) : static {
+        return new static(
+            $folder ?? "/scorm"
+        );
+    }
+
+
+    public static function newFromEnv() : static
     {
-        $dto = new static();
-
-        $dto->folder = $folder ?? "/scorm";
-
-        return $dto;
+        return static::new(
+            $_ENV["FLUX_SCORM_PLAYER_API_FILESYSTEM_FOLDER"] ?? null
+        );
     }
 }

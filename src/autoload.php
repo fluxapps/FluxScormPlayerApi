@@ -3,12 +3,12 @@
 namespace FluxScormPlayerApi;
 
 require_once __DIR__ . "/../libs/flux-autoload-api/autoload.php";
-require_once __DIR__ . "/../libs/flux-rest-api/autoload.php";
+require_once __DIR__ . "/../libs/flux-rest-base-api/autoload.php";
 
-use FluxAutoloadApi\Adapter\Autoload\ComposerAutoload;
-use FluxAutoloadApi\Adapter\Autoload\Psr4Autoload;
-use FluxAutoloadApi\Adapter\Checker\PhpExtChecker;
-use FluxAutoloadApi\Adapter\Checker\PhpVersionChecker;
+use FluxScormPlayerApi\Libs\FluxAutoloadApi\Adapter\Autoload\ComposerAutoload;
+use FluxScormPlayerApi\Libs\FluxAutoloadApi\Adapter\Autoload\Psr4Autoload;
+use FluxScormPlayerApi\Libs\FluxAutoloadApi\Adapter\Checker\PhpExtChecker;
+use FluxScormPlayerApi\Libs\FluxAutoloadApi\Adapter\Checker\PhpVersionChecker;
 
 PhpVersionChecker::new(
     ">=8.1"
@@ -22,7 +22,6 @@ PhpExtChecker::new(
         "json",
         "mongodb",
         "simplexml",
-        "swoole",
         "zip"
     ]
 )

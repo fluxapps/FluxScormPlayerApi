@@ -9,18 +9,22 @@ use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
 class GetScormPackageMetadataCommand
 {
 
-    private readonly FilesystemConfigDto $filesystem_config;
-    private readonly MetadataStorage $metadata_storage;
+    private function __construct(
+        private readonly FilesystemConfigDto $filesystem_config,
+        private readonly MetadataStorage $metadata_storage
+    ) {
+
+    }
 
 
-    public static function new(FilesystemConfigDto $filesystem_config, MetadataStorage $metadata_storage) : static
-    {
-        $command = new static();
-
-        $command->filesystem_config = $filesystem_config;
-        $command->metadata_storage = $metadata_storage;
-
-        return $command;
+    public static function new(
+        FilesystemConfigDto $filesystem_config,
+        MetadataStorage $metadata_storage
+    ) : static {
+        return new static(
+            $filesystem_config,
+            $metadata_storage
+        );
     }
 
 

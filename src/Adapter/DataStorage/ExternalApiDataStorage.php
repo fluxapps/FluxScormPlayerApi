@@ -3,25 +3,28 @@
 namespace FluxScormPlayerApi\Adapter\DataStorage;
 
 use Exception;
-use FluxRestBaseApi\Body\DefaultBodyType;
-use FluxRestBaseApi\Header\DefaultHeader;
-use FluxRestBaseApi\Method\DefaultMethod;
-use FluxRestBaseApi\Method\Method;
 use FluxScormPlayerApi\Adapter\Config\ExternalApiConfigDto;
+use FluxScormPlayerApi\Libs\FluxRestBaseApi\Body\DefaultBodyType;
+use FluxScormPlayerApi\Libs\FluxRestBaseApi\Header\DefaultHeader;
+use FluxScormPlayerApi\Libs\FluxRestBaseApi\Method\DefaultMethod;
+use FluxScormPlayerApi\Libs\FluxRestBaseApi\Method\Method;
 
 class ExternalApiDataStorage implements DataStorage
 {
 
-    private readonly ExternalApiConfigDto $external_api_config;
+    private function __construct(
+        private readonly ExternalApiConfigDto $external_api_config
+    ) {
+
+    }
 
 
-    public static function new(ExternalApiConfigDto $external_api_config) : static
-    {
-        $data_storage = new static();
-
-        $data_storage->external_api_config = $external_api_config;
-
-        return $data_storage;
+    public static function new(
+        ExternalApiConfigDto $external_api_config
+    ) : static {
+        return new static(
+            $external_api_config
+        );
     }
 
 
