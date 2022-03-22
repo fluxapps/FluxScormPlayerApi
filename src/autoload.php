@@ -3,6 +3,7 @@
 namespace FluxScormPlayerApi;
 
 require_once __DIR__ . "/../libs/flux-autoload-api/autoload.php";
+require_once __DIR__ . "/../libs/flux-file-storage-api/autoload.php";
 require_once __DIR__ . "/../libs/flux-rest-base-api/autoload.php";
 
 use FluxScormPlayerApi\Libs\FluxAutoloadApi\Adapter\Autoload\ComposerAutoload;
@@ -21,8 +22,7 @@ PhpExtChecker::new(
         "curl",
         "json",
         "mongodb",
-        "simplexml",
-        "zip"
+        "simplexml"
     ]
 )
     ->checkAndDie(
