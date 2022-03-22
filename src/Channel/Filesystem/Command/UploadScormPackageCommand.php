@@ -3,17 +3,19 @@
 namespace FluxScormPlayerApi\Channel\Filesystem\Command;
 
 use Exception;
-use FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataDto;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataType;
-use ZipArchive;
+use FluxScormPlayerApi\Channel\Filesystem\FilesystemUtils;
+use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Api\FileStorageApi;
 
 class UploadScormPackageCommand
 {
 
+    use FilesystemUtils;
+
     private function __construct(
-        private readonly FilesystemConfigDto $filesystem_config,
+        private readonly FileStorageApi $file_storage_api,
         private readonly MetadataStorage $metadata_storage
     ) {
 
@@ -21,11 +23,11 @@ class UploadScormPackageCommand
 
 
     public static function new(
-        FilesystemConfigDto $filesystem_config,
+        FileStorageApi $file_storage_api,
         MetadataStorage $metadata_storage
     ) : static {
         return new static(
-            $filesystem_config,
+            $file_storage_api,
             $metadata_storage
         );
     }
@@ -33,14 +35,23 @@ class UploadScormPackageCommand
 
     public function uploadScormPackage(string $id, string $title, string $file) : void
     {
-        $path = $this->filesystem_config->folder . "/" . $id;
-
-        $this->extractZipFile(
-            $file,
-            $path
+        $id = $this->normalizeId(
+            $id
         );
 
-        $manifest = json_decode(json_encode(simplexml_load_file($path . "/imsmanifest.xml")), true);
+        $this->file_storage_api->upload(
+            $file,
+            $id . ".zip",
+            $id,
+            true,
+            false,
+            true,
+            true
+        );
+
+        $manifest = json_decode(json_encode(simplexml_load_file($this->file_storage_api->getFullPath(
+            $id . "/imsmanifest.xml"
+        ))), true);
 
         switch ($manifest["metadata"]["schemaversion"]) {
             case "1.2":
@@ -65,30 +76,5 @@ class UploadScormPackageCommand
                 $type
             )
         );
-    }
-
-
-    private function extractZipFile(string $file, string $path) : void
-    {
-        $zip = null;
-        try {
-            if (file_exists($path)) {
-                exec("rm -rf " . escapeshellarg($path));
-            }
-
-            $zip = new ZipArchive();
-
-            if (($open = $zip->open($file)) !== true) {
-                throw new Exception("Failed to open " . $file . " - Error code: " . $open);
-            }
-
-            if (!$zip->extractTo($path)) {
-                throw new Exception("Failed to extract " . $file . " to " . $path);
-            }
-        } finally {
-            if ($zip !== null) {
-                $zip->close();
-            }
-        }
     }
 }

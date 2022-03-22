@@ -2,7 +2,6 @@
 
 namespace FluxScormPlayerApi\Channel\Filesystem\Port;
 
-use FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
 use FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataDto;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
@@ -10,12 +9,13 @@ use FluxScormPlayerApi\Channel\Filesystem\Command\DeleteScormPackageCommand;
 use FluxScormPlayerApi\Channel\Filesystem\Command\GetScormPackageAssetPathCommand;
 use FluxScormPlayerApi\Channel\Filesystem\Command\GetScormPackageMetadataCommand;
 use FluxScormPlayerApi\Channel\Filesystem\Command\UploadScormPackageCommand;
+use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Api\FileStorageApi;
 
 class FilesystemService
 {
 
     private function __construct(
-        private readonly FilesystemConfigDto $filesystem_config,
+        private readonly FileStorageApi $file_storage_api,
         private readonly MetadataStorage $metadata_storage,
         private readonly DataStorage $data_storage
     ) {
@@ -24,12 +24,12 @@ class FilesystemService
 
 
     public static function new(
-        FilesystemConfigDto $filesystem_config,
+        FileStorageApi $file_storage_api,
         MetadataStorage $metadata_storage,
         DataStorage $data_storage
     ) : static {
         return new static(
-            $filesystem_config,
+            $file_storage_api,
             $metadata_storage,
             $data_storage
         );
@@ -39,7 +39,7 @@ class FilesystemService
     public function deleteScormPackage(string $id) : void
     {
         DeleteScormPackageCommand::new(
-            $this->filesystem_config,
+            $this->file_storage_api,
             $this->metadata_storage,
             $this->data_storage
         )
@@ -52,7 +52,7 @@ class FilesystemService
     public function getScormPackageAssetPath(string $id, string $path) : ?string
     {
         return GetScormPackageAssetPathCommand::new(
-            $this->filesystem_config
+            $this->file_storage_api
         )
             ->getScormPackageAssetPath(
                 $id,
@@ -64,7 +64,7 @@ class FilesystemService
     public function getScormPackageMetadata(string $id) : ?MetadataDto
     {
         return GetScormPackageMetadataCommand::new(
-            $this->filesystem_config,
+            $this->file_storage_api,
             $this->metadata_storage
         )
             ->getScormPackageMetadata(
@@ -76,7 +76,7 @@ class FilesystemService
     public function uploadScormPackage(string $id, string $title, string $file) : void
     {
         UploadScormPackageCommand::new(
-            $this->filesystem_config,
+            $this->file_storage_api,
             $this->metadata_storage
         )
             ->uploadScormPackage(

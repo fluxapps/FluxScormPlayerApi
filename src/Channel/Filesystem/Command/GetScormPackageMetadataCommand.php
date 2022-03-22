@@ -2,15 +2,18 @@
 
 namespace FluxScormPlayerApi\Channel\Filesystem\Command;
 
-use FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataDto;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
+use FluxScormPlayerApi\Channel\Filesystem\FilesystemUtils;
+use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Api\FileStorageApi;
 
 class GetScormPackageMetadataCommand
 {
 
+    use FilesystemUtils;
+
     private function __construct(
-        private readonly FilesystemConfigDto $filesystem_config,
+        private readonly FileStorageApi $file_storage_api,
         private readonly MetadataStorage $metadata_storage
     ) {
 
@@ -18,11 +21,11 @@ class GetScormPackageMetadataCommand
 
 
     public static function new(
-        FilesystemConfigDto $filesystem_config,
+        FileStorageApi $file_storage_api,
         MetadataStorage $metadata_storage
     ) : static {
         return new static(
-            $filesystem_config,
+            $file_storage_api,
             $metadata_storage
         );
     }
@@ -30,7 +33,14 @@ class GetScormPackageMetadataCommand
 
     public function getScormPackageMetadata(string $id) : ?MetadataDto
     {
-        if (!file_exists($this->filesystem_config->folder . "/" . $id)) {
+        $id = $this->normalizeId(
+            $id
+        );
+
+        if (!$this->file_storage_api->exists(
+            $id
+        )
+        ) {
             return null;
         }
 

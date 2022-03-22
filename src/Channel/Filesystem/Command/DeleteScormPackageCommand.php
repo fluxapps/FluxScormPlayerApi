@@ -2,15 +2,18 @@
 
 namespace FluxScormPlayerApi\Channel\Filesystem\Command;
 
-use FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
 use FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
+use FluxScormPlayerApi\Channel\Filesystem\FilesystemUtils;
+use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Api\FileStorageApi;
 
 class DeleteScormPackageCommand
 {
 
+    use FilesystemUtils;
+
     private function __construct(
-        private readonly FilesystemConfigDto $filesystem_config,
+        private readonly FileStorageApi $file_storage_api,
         private readonly MetadataStorage $metadata_storage,
         private readonly DataStorage $data_storage
     ) {
@@ -19,12 +22,12 @@ class DeleteScormPackageCommand
 
 
     public static function new(
-        FilesystemConfigDto $filesystem_config,
+        FileStorageApi $file_storage_api,
         MetadataStorage $metadata_storage,
         DataStorage $data_storage
     ) : static {
         return new static(
-            $filesystem_config,
+            $file_storage_api,
             $metadata_storage,
             $data_storage
         );
@@ -33,9 +36,13 @@ class DeleteScormPackageCommand
 
     public function deleteScormPackage(string $id) : void
     {
-        if (file_exists($path = $this->filesystem_config->folder . "/" . $id)) {
-            exec("rm -rf " . escapeshellarg($path));
-        }
+        $id = $this->normalizeId(
+            $id
+        );
+
+        $this->file_storage_api->delete(
+            $id
+        );
 
         $this->metadata_storage->deleteMetadata(
             $id

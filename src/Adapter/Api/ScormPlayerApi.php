@@ -4,6 +4,9 @@ namespace FluxScormPlayerApi\Adapter\Api;
 
 use FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
 use FluxScormPlayerApi\Channel\PlayScormPackage\Port\PlayScormPackageService;
+use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Api\FileStorageApi;
+use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Api\FileStorageApiConfigDto;
+use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Config\StorageConfigDto;
 
 class ScormPlayerApi
 {
@@ -94,10 +97,22 @@ class ScormPlayerApi
     }
 
 
+    private function getFileStorageApi() : FileStorageApi
+    {
+        return FileStorageApi::new(
+            FileStorageApiConfigDto::new(
+                StorageConfigDto::new(
+                    $this->scorm_player_api_config->filesystem_config->folder
+                )
+            )
+        );
+    }
+
+
     private function getFilesystemService() : FilesystemService
     {
         return FilesystemService::new(
-            $this->scorm_player_api_config->filesystem_config,
+            $this->getFileStorageApi(),
             $this->scorm_player_api_config->metadata_storage,
             $this->scorm_player_api_config->data_storage
         );
