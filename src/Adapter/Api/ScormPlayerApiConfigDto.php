@@ -3,14 +3,14 @@
 namespace FluxScormPlayerApi\Adapter\Api;
 
 use Exception;
-use FluxScormPlayerApi\Adapter\Config\DatabaseConfigDto;
-use FluxScormPlayerApi\Adapter\Config\DataStorageConfigDto;
-use FluxScormPlayerApi\Adapter\Config\DataStorageConfigType;
-use FluxScormPlayerApi\Adapter\Config\ExternalApiConfigDto;
-use FluxScormPlayerApi\Adapter\Config\FilesystemConfigDto;
+use FluxScormPlayerApi\Adapter\Database\DatabaseConfigDto;
 use FluxScormPlayerApi\Adapter\DataStorage\DatabaseDataStorage;
 use FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
+use FluxScormPlayerApi\Adapter\DataStorage\DataStorageConfigDto;
+use FluxScormPlayerApi\Adapter\DataStorage\DataStorageConfigType;
 use FluxScormPlayerApi\Adapter\DataStorage\ExternalApiDataStorage;
+use FluxScormPlayerApi\Adapter\DataStorage\ExternalApiDataStorageConfigDto;
+use FluxScormPlayerApi\Adapter\Filesystem\FilesystemConfigDto;
 use FluxScormPlayerApi\Adapter\MetadataStorage\DatabaseMetadataStorage;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
 use MongoDB\Client;
@@ -50,7 +50,7 @@ class ScormPlayerApiConfigDto
         switch ($data_storage_config->type) {
             case DataStorageConfigType::EXTERNAL_API:
                 $data_storage = ExternalApiDataStorage::new(
-                    ExternalApiConfigDto::newFromEnv()
+                    ExternalApiDataStorageConfigDto::newFromEnv()
                 );
                 break;
 

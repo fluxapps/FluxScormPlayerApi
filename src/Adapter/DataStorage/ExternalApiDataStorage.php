@@ -3,7 +3,6 @@
 namespace FluxScormPlayerApi\Adapter\DataStorage;
 
 use Exception;
-use FluxScormPlayerApi\Adapter\Config\ExternalApiConfigDto;
 use FluxScormPlayerApi\Libs\FluxRestBaseApi\Body\DefaultBodyType;
 use FluxScormPlayerApi\Libs\FluxRestBaseApi\Header\DefaultHeader;
 use FluxScormPlayerApi\Libs\FluxRestBaseApi\Method\DefaultMethod;
@@ -13,17 +12,17 @@ class ExternalApiDataStorage implements DataStorage
 {
 
     private function __construct(
-        private readonly ExternalApiConfigDto $external_api_config
+        private readonly ExternalApiDataStorageConfigDto $external_api_data_storage_config
     ) {
 
     }
 
 
     public static function new(
-        ExternalApiConfigDto $external_api_config
+        ExternalApiDataStorageConfigDto $external_api_data_storage_config
     ) : static {
         return new static(
-            $external_api_config
+            $external_api_data_storage_config
         );
     }
 
@@ -31,7 +30,7 @@ class ExternalApiDataStorage implements DataStorage
     public function deleteData(string $scorm_id) : void
     {
         $this->request(
-            $this->external_api_config->delete_data_url,
+            $this->external_api_data_storage_config->delete_data_url,
             $scorm_id,
             null,
             DefaultMethod::DELETE
@@ -42,7 +41,7 @@ class ExternalApiDataStorage implements DataStorage
     public function getData(string $scorm_id, string $user_id) : ?object
     {
         return $this->request(
-            $this->external_api_config->get_data_url,
+            $this->external_api_data_storage_config->get_data_url,
             $scorm_id,
             $user_id
         );
@@ -52,7 +51,7 @@ class ExternalApiDataStorage implements DataStorage
     public function storeData(string $scorm_id, string $user_id, object $data) : void
     {
         $this->request(
-            $this->external_api_config->store_data_url,
+            $this->external_api_data_storage_config->store_data_url,
             $scorm_id,
             $user_id,
             DefaultMethod::POST,
