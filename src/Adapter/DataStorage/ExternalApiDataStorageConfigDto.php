@@ -1,8 +1,8 @@
 <?php
 
-namespace FluxScormPlayerApi\Adapter\Config;
+namespace FluxScormPlayerApi\Adapter\DataStorage;
 
-class ExternalApiConfigDto
+class ExternalApiDataStorageConfigDto
 {
 
     private function __construct(

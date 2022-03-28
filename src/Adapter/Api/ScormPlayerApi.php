@@ -6,7 +6,7 @@ use FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
 use FluxScormPlayerApi\Channel\PlayScormPackage\Port\PlayScormPackageService;
 use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Api\FileStorageApi;
 use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Api\FileStorageApiConfigDto;
-use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Config\StorageConfigDto;
+use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Storage\StorageConfigDto;
 
 class ScormPlayerApi
 {
