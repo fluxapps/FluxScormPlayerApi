@@ -40,7 +40,7 @@ COPY . /flux-scorm-player-api
 
 FROM scratch
 
-LABEL org.opencontainers.image.source="https://github.com/fluxapps/flux-scorm-player-api"
+LABEL org.opencontainers.image.source="https://github.com/flux-eco/flux-scorm-player-api"
 LABEL maintainer="fluxlabs <support@fluxlabs.ch> (https://fluxlabs.ch)"
 
 COPY --from=build /flux-scorm-player-api /flux-scorm-player-api
