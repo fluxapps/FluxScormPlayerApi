@@ -37,4 +37,4 @@ Minimal variables required to set are **bold**
 
 ## Example
 
-Look at [flux-scorm-player-rest-api](https://github.com/flux-eco/flux-scorm-player-rest-api)
+Look at [flux-scorm-player-rest-api](https://github.com/flux-caps/flux-scorm-player-rest-api)
