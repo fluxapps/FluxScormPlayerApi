@@ -4,7 +4,7 @@ namespace FluxScormPlayerApi;
 
 require_once __DIR__ . "/../libs/flux-autoload-api/autoload.php";
 require_once __DIR__ . "/../libs/flux-file-storage-api/autoload.php";
-require_once __DIR__ . "/../libs/flux-rest-base-api/autoload.php";
+require_once __DIR__ . "/../libs/flux-rest-api/autoload.php";
 
 use FluxScormPlayerApi\Libs\FluxAutoloadApi\Adapter\Autoload\ComposerAutoload;
 use FluxScormPlayerApi\Libs\FluxAutoloadApi\Adapter\Autoload\Psr4Autoload;

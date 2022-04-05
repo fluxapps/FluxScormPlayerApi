@@ -3,10 +3,10 @@
 namespace FluxScormPlayerApi\Adapter\DataStorage;
 
 use Exception;
-use FluxScormPlayerApi\Libs\FluxRestBaseApi\Body\DefaultBodyType;
-use FluxScormPlayerApi\Libs\FluxRestBaseApi\Header\DefaultHeader;
-use FluxScormPlayerApi\Libs\FluxRestBaseApi\Method\DefaultMethod;
-use FluxScormPlayerApi\Libs\FluxRestBaseApi\Method\Method;
+use FluxScormPlayerApi\Libs\FluxRestApi\Body\DefaultBodyType;
+use FluxScormPlayerApi\Libs\FluxRestApi\Header\DefaultHeader;
+use FluxScormPlayerApi\Libs\FluxRestApi\Method\DefaultMethod;
+use FluxScormPlayerApi\Libs\FluxRestApi\Method\Method;
 
 class ExternalApiDataStorage implements DataStorage
 {
