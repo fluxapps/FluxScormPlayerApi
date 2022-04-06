@@ -13,6 +13,7 @@ use FluxScormPlayerApi\Adapter\DataStorage\ExternalApiDataStorageConfigDto;
 use FluxScormPlayerApi\Adapter\Filesystem\FilesystemConfigDto;
 use FluxScormPlayerApi\Adapter\MetadataStorage\DatabaseMetadataStorage;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
+use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Api\RestApi;
 use MongoDB\Client;
 
 class ScormPlayerApiConfigDto
@@ -50,7 +51,8 @@ class ScormPlayerApiConfigDto
         switch ($data_storage_config->type) {
             case DataStorageConfigType::EXTERNAL_API:
                 $data_storage = ExternalApiDataStorage::new(
-                    ExternalApiDataStorageConfigDto::newFromEnv()
+                    ExternalApiDataStorageConfigDto::newFromEnv(),
+                    RestApi::new()
                 );
                 break;
 
