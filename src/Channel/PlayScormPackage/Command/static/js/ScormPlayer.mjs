@@ -1,6 +1,6 @@
 import "./scorm-again/scorm-again.min.js";
 
-const {type, api_settings} = JSON.parse(atob(new URL(import.meta.url).hash.substr(1)));
+const {type, api_settings} = JSON.parse(atob(new URL(import.meta.url).hash.substring(1)));
 
 let api;
 switch (type) {
