@@ -5,7 +5,7 @@ namespace FluxScormPlayerApi\Adapter\DataStorage;
 use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Api\RestApi;
 use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
 use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Client\ClientRequestDto;
-use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Header\DefaultHeader;
+use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Header\DefaultHeaderKey;
 use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
 use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Method\Method;
 
@@ -74,18 +74,18 @@ class ExternalApiDataStorage implements DataStorage
         }
 
         $headers = [
-            DefaultHeader::USER_AGENT->value => "flux-scorm-player-api"
+            DefaultHeaderKey::USER_AGENT->value => "flux-scorm-player-api"
         ];
 
         if ($data !== null) {
-            $headers[DefaultHeader::CONTENT_TYPE->value] = DefaultBodyType::JSON->value;
+            $headers[DefaultHeaderKey::CONTENT_TYPE->value] = DefaultBodyType::JSON->value;
             $data = json_encode($data, JSON_UNESCAPED_SLASHES);
         }
 
         $method ??= DefaultMethod::GET;
         $return = $method === DefaultMethod::GET;
         if ($return) {
-            $headers[DefaultHeader::ACCEPT->value] = DefaultBodyType::JSON->value;
+            $headers[DefaultHeaderKey::ACCEPT->value] = DefaultBodyType::JSON->value;
         }
 
         $response = $this->rest_api->makeRequest(
