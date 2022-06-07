@@ -102,7 +102,7 @@ class ExternalApiDataStorage implements DataStorage
             )
         );
 
-        if (!$return || empty($data = $response?->getBody()) || empty($data = json_decode($data))) {
+        if (!$return || empty($data = $response?->body) || empty($data = json_decode($data))) {
             $data = null;
         }
 
