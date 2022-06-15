@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxScormPlayerApi\Channel\Filesystem;
+namespace FluxScormPlayerApi\Service\Filesystem;
 
 use Exception;
 

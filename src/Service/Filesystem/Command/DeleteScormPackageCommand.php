@@ -1,11 +1,11 @@
 <?php
 
-namespace FluxScormPlayerApi\Channel\Filesystem\Command;
+namespace FluxScormPlayerApi\Service\Filesystem\Command;
 
 use FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
-use FluxScormPlayerApi\Channel\Filesystem\FilesystemUtils;
 use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Api\FileStorageApi;
+use FluxScormPlayerApi\Service\Filesystem\FilesystemUtils;
 
 class DeleteScormPackageCommand
 {

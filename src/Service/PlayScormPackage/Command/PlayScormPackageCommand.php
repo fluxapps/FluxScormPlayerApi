@@ -1,9 +1,9 @@
 <?php
 
-namespace FluxScormPlayerApi\Channel\PlayScormPackage\Command;
+namespace FluxScormPlayerApi\Service\PlayScormPackage\Command;
 
-use FluxScormPlayerApi\Channel\Filesystem\Port\FilesystemService;
 use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxScormPlayerApi\Service\Filesystem\Port\FilesystemService;
 
 class PlayScormPackageCommand
 {
