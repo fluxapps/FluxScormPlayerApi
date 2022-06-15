@@ -1,6 +1,6 @@
 <?php
 
-namespace FluxScormPlayerApi\Channel\PlayScormPackage\Command;
+namespace FluxScormPlayerApi\Service\PlayScormPackage\Command;
 
 class GetStaticPathCommand
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace FluxScormPlayerApi\Channel\Filesystem\Command;
+namespace FluxScormPlayerApi\Service\Filesystem\Command;
 
-use FluxScormPlayerApi\Channel\Filesystem\FilesystemUtils;
 use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Api\FileStorageApi;
+use FluxScormPlayerApi\Service\Filesystem\FilesystemUtils;
 
 class GetScormPackageAssetPathCommand
 {
