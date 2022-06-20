@@ -6,7 +6,6 @@ require_once __DIR__ . "/../libs/flux-autoload-api/autoload.php";
 require_once __DIR__ . "/../libs/flux-file-storage-api/autoload.php";
 require_once __DIR__ . "/../libs/flux-rest-api/autoload.php";
 
-use FluxScormPlayerApi\Libs\FluxAutoloadApi\Adapter\Autoload\ComposerAutoload;
 use FluxScormPlayerApi\Libs\FluxAutoloadApi\Adapter\Autoload\Psr4Autoload;
 use FluxScormPlayerApi\Libs\FluxAutoloadApi\Adapter\Checker\PhpExtChecker;
 use FluxScormPlayerApi\Libs\FluxAutoloadApi\Adapter\Checker\PhpVersionChecker;
@@ -35,7 +34,4 @@ Psr4Autoload::new(
 )
     ->autoload();
 
-ComposerAutoload::new(
-    __DIR__ . "/../libs/mongo-php-library"
-)
-    ->autoload();
+require_once __DIR__ . "/../libs/mongo-php-library/vendor/autoload.php";
