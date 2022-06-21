@@ -24,19 +24,21 @@ RUN change-namespace /code/flux-rest-api FluxRestApi FluxScormPlayerApi\\Libs\\F
 
 FROM alpine:latest AS build
 
-COPY --from=build_namespaces /code/flux-autoload-api /flux-scorm-player-api/libs/flux-autoload-api
-COPY --from=build_namespaces /code/flux-file-storage-api /flux-scorm-player-api/libs/flux-file-storage-api
-COPY --from=build_namespaces /code/flux-rest-api /flux-scorm-player-api/libs/flux-rest-api
-COPY --from=composer /code/mongo-php-library /flux-scorm-player-api/libs/mongo-php-library
-RUN (mkdir -p /flux-scorm-player-api/libs/_temp_scorm-again && cd /flux-scorm-player-api/libs/_temp_scorm-again && wget -O - https://github.com/jcputney/scorm-again/archive/master.tar.gz | tar -xz --strip-components=1 && rm -rf ../scorm-again && mv dist ../scorm-again && rm -rf ../_temp_scorm-again)
-COPY . /flux-scorm-player-api
+COPY --from=build_namespaces /code/flux-autoload-api /build/flux-scorm-player-api/libs/flux-autoload-api
+COPY --from=build_namespaces /code/flux-file-storage-api /build/flux-scorm-player-api/libs/flux-file-storage-api
+COPY --from=build_namespaces /code/flux-rest-api /build/flux-scorm-player-api/libs/flux-rest-api
+COPY --from=composer /code/mongo-php-library /build/flux-scorm-player-api/libs/mongo-php-library
+RUN (mkdir -p /build/flux-scorm-player-api/libs/_temp_scorm-again && cd /build/flux-scorm-player-api/libs/_temp_scorm-again && wget -O - https://github.com/jcputney/scorm-again/archive/master.tar.gz | tar -xz --strip-components=1 && rm -rf ../scorm-again && mv dist ../scorm-again && rm -rf ../_temp_scorm-again)
+COPY . /build/flux-scorm-player-api
+
+RUN (cd /build && tar -czf flux-scorm-player-api.tar.gz flux-scorm-player-api)
 
 FROM scratch
 
 LABEL org.opencontainers.image.source="https://github.com/flux-eco/flux-scorm-player-api"
 LABEL maintainer="fluxlabs <support@fluxlabs.ch> (https://fluxlabs.ch)"
 
-COPY --from=build /flux-scorm-player-api /flux-scorm-player-api
+COPY --from=build /build /
 
 ARG COMMIT_SHA
 LABEL org.opencontainers.image.revision="$COMMIT_SHA"
