@@ -59,8 +59,6 @@ class PlayScormPackageCommand
             "title"      => $metadata->title
         ];
 
-        $html = preg_replace_callback("/{([a-z_]+)}/", fn(array $matches) : string => htmlspecialchars($placeholders[$matches[1]]), $html);
-
-        return $html;
+        return preg_replace_callback("/{([a-z_]+)}/", fn(array $matches) : string => htmlspecialchars($placeholders[$matches[1]]), $html);
     }
 }
