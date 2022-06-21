@@ -11,6 +11,10 @@ FROM composer:latest AS composer
 
 RUN (mkdir -p /code/mongo-php-library && cd /code/mongo-php-library && composer require mongodb/mongodb --ignore-platform-reqs)
 
+FROM node:current-alpine AS npm
+
+RUN (mkdir -p /code/scorm-again && cd /code/scorm-again && npm install scorm-again)
+
 FROM $FLUX_NAMESPACE_CHANGER_IMAGE:latest AS build_namespaces
 
 COPY --from=flux_autoload_api /flux-autoload-api /code/flux-autoload-api
@@ -28,7 +32,7 @@ COPY --from=build_namespaces /code/flux-autoload-api /build/flux-scorm-player-ap
 COPY --from=build_namespaces /code/flux-file-storage-api /build/flux-scorm-player-api/libs/flux-file-storage-api
 COPY --from=build_namespaces /code/flux-rest-api /build/flux-scorm-player-api/libs/flux-rest-api
 COPY --from=composer /code/mongo-php-library /build/flux-scorm-player-api/libs/mongo-php-library
-RUN (mkdir -p /build/flux-scorm-player-api/libs/_temp_scorm-again && cd /build/flux-scorm-player-api/libs/_temp_scorm-again && wget -O - https://github.com/jcputney/scorm-again/archive/master.tar.gz | tar -xz --strip-components=1 && rm -rf ../scorm-again && mv dist ../scorm-again && rm -rf ../_temp_scorm-again)
+COPY --from=npm /code/scorm-again /build/flux-scorm-player-api/libs/scorm-again
 COPY . /build/flux-scorm-player-api
 
 RUN (cd /build && tar -czf flux-scorm-player-api.tar.gz flux-scorm-player-api)
