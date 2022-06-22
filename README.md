@@ -4,18 +4,58 @@ Scorm Player Api for play scorm modules
 
 ## Installation
 
+Hint: Use `latest` as `%tag%` (or omit it) for get the latest build
+
+### Non-Composer
+
 ```dockerfile
-COPY --from=docker-registry.fluxpublisher.ch/flux-scorm-player/api:latest /flux-scorm-player-api /%path%/libs/flux-scorm-player-api
+COPY --from=docker-registry.fluxpublisher.ch/flux-scorm-player/api:%tag% /flux-scorm-player-api /%path%/libs/flux-scorm-player-api
 ```
 
-## Usage
+or
+
+```dockerfile
+RUN (mkdir -p /%path%/libs/flux-scorm-player-api && cd /%path%/libs/flux-scorm-player-api && wget -O - https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-scorm-player/api.tar.gz?tag=%tag% | tar -xz --strip-components=1)
+```
+
+or
+
+Download https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-scorm-player/api.tar.gz?tag=%tag% and extract it to `/%path%/libs/flux-scorm-player-api`
+
+Hint: If you use `wget` without pipe use `--content-disposition` to get the correct file name
+
+#### Usage
 
 ```php
 require_once __DIR__ . "/%path%/libs/flux-scorm-player-api/autoload.php";
 ```
 
-```php
-ScormPlayerApi::new();
+### Composer
+
+```json
+{
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "flux/flux-scorm-player-api",
+                "version": "%tag%",
+                "dist": {
+                    "url": "https://docker-registry.fluxpublisher.ch/api/get-build-archive/flux-scorm-player/api.tar.gz?tag=%tag%",
+                    "type": "tar"
+                },
+                "autoload": {
+                    "files": [
+                        "autoload.php"
+                    ]
+                }
+            }
+        }
+    ],
+    "require": {
+        "flux/flux-scorm-player-api": "*"
+    }
+}
 ```
 
 ## Environment variables

@@ -3,17 +3,17 @@ ARG FLUX_FILE_STORAGE_API_IMAGE=docker-registry.fluxpublisher.ch/flux-file-stora
 ARG FLUX_NAMESPACE_CHANGER_IMAGE=docker-registry.fluxpublisher.ch/flux-namespace-changer
 ARG FLUX_REST_API_IMAGE=docker-registry.fluxpublisher.ch/flux-rest/api
 
-FROM $FLUX_AUTOLOAD_API_IMAGE:latest AS flux_autoload_api
-FROM $FLUX_FILE_STORAGE_API_IMAGE:latest AS flux_file_storage_api
-FROM $FLUX_REST_API_IMAGE:latest AS flux_rest_api
+FROM $FLUX_AUTOLOAD_API_IMAGE:v2022-06-22-1 AS flux_autoload_api
+FROM $FLUX_FILE_STORAGE_API_IMAGE:v2022-06-22-1 AS flux_file_storage_api
+FROM $FLUX_REST_API_IMAGE:v2022-06-22-1 AS flux_rest_api
 
 FROM composer:latest AS composer
 
-RUN (mkdir -p /code/mongo-php-library && cd /code/mongo-php-library && composer require mongodb/mongodb --ignore-platform-reqs)
+RUN (mkdir -p /code/mongo-php-library && cd /code/mongo-php-library && composer require mongodb/mongodb:1.12.0 --ignore-platform-reqs)
 
 FROM node:current-alpine AS npm
 
-RUN (mkdir -p /code/scorm-again && cd /code/scorm-again && npm install scorm-again)
+RUN (mkdir -p /code/scorm-again && cd /code/scorm-again && npm install scorm-again@1.7.0)
 
 FROM $FLUX_NAMESPACE_CHANGER_IMAGE:latest AS build_namespaces
 
@@ -41,6 +41,7 @@ FROM scratch
 
 LABEL org.opencontainers.image.source="https://github.com/flux-eco/flux-scorm-player-api"
 LABEL maintainer="fluxlabs <support@fluxlabs.ch> (https://fluxlabs.ch)"
+LABEL flux-docker-registry-rest-api-build-path="/flux-scorm-player-api.tar.gz"
 
 COPY --from=build /build /
 
