@@ -15,7 +15,7 @@ FROM node:current-alpine AS npm
 
 RUN (mkdir -p /code/scorm-again && cd /code/scorm-again && npm install scorm-again@1.7.0)
 
-FROM $FLUX_NAMESPACE_CHANGER_IMAGE:latest AS build_namespaces
+FROM $FLUX_NAMESPACE_CHANGER_IMAGE:v2022-06-23-1 AS build_namespaces
 
 COPY --from=flux_autoload_api /flux-autoload-api /code/flux-autoload-api
 RUN change-namespace /code/flux-autoload-api FluxAutoloadApi FluxScormPlayerApi\\Libs\\FluxAutoloadApi
