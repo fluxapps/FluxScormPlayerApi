@@ -3,8 +3,8 @@
 namespace FluxScormPlayerApi\Adapter\DataStorage;
 
 use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Api\RestApi;
-use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
 use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
+use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
 use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Client\ClientRequestDto;
 use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Header\DefaultHeaderKey;
 use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
