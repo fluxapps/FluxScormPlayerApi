@@ -4,6 +4,7 @@ namespace FluxScormPlayerApi\Adapter\DataStorage;
 
 use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Api\RestApi;
 use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
 use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Client\ClientRequestDto;
 use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Header\DefaultHeaderKey;
 use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
@@ -78,8 +79,9 @@ class ExternalApiDataStorage implements DataStorage
         ];
 
         if ($data !== null) {
-            $headers[DefaultHeaderKey::CONTENT_TYPE->value] = DefaultBodyType::JSON->value;
-            $data = json_encode($data, JSON_UNESCAPED_SLASHES);
+            $data = JsonBodyDto::new(
+                $data
+            );
         }
 
         $method ??= DefaultMethod::GET;
@@ -93,8 +95,10 @@ class ExternalApiDataStorage implements DataStorage
                 preg_replace_callback("/{([a-z_]+)}/", fn(array $matches) : string => $placeholders[$matches[1]] ?? "", $url),
                 $method,
                 null,
-                $data,
+                null,
                 $headers,
+                $data,
+                null,
                 $return,
                 true,
                 false,
@@ -102,7 +106,7 @@ class ExternalApiDataStorage implements DataStorage
             )
         );
 
-        if (!$return || empty($data = $response?->body) || empty($data = json_decode($data))) {
+        if (!$return || empty($data = $response?->raw_body) || empty($data = json_decode($data))) {
             $data = null;
         }
 
