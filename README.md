@@ -7,12 +7,6 @@ Scorm Player Api for play scorm modules
 ### Non-Composer
 
 ```dockerfile
-COPY --from=docker-registry.fluxpublisher.ch/flux-scorm-player-api:%tag% /flux-scorm-player-api /%path%/libs/flux-scorm-player-api
-```
-
-or
-
-```dockerfile
 RUN (mkdir -p /%path%/libs/flux-scorm-player-api && cd /%path%/libs/flux-scorm-player-api && wget -O - https://github.com/flux-eco/flux-scorm-player-api/releases/download/%tag%/flux-scorm-player-api-%tag%-build.tar.gz | tar -xz --strip-components=1)
 ```
 
