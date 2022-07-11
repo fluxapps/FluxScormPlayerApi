@@ -7,13 +7,15 @@ FROM $FLUX_AUTOLOAD_API_IMAGE:v2022-06-22-1 AS flux_autoload_api
 FROM $FLUX_FILE_STORAGE_API_IMAGE:v2022-07-05-1 AS flux_file_storage_api
 FROM $FLUX_REST_API_IMAGE:v2022-07-11-1 AS flux_rest_api
 
+FROM node:current-alpine AS npm
+
+RUN (mkdir -p /code/scorm-again && cd /code/scorm-again && npm install scorm-again@1.7.0)
+
 FROM composer:latest AS composer
 
 RUN (mkdir -p /code/mongo-php-library && cd /code/mongo-php-library && composer require mongodb/mongodb:1.12.0 --ignore-platform-reqs && cd vendor/mongodb/mongodb && rm -rf $(ls -A -I "composer*" -I "LICENSE*" -I src))
-
-FROM node:current-alpine AS npm
-
-RUN (mkdir -p /code/scorm-again && cd /code/scorm-again && npm install scorm-again@1.7.0 && cd node_modules/scorm-again && rm -rf $(ls -A -I dist -I "LICENSE*" -I "package*") && cd dist && rm -rf $(ls -A -I "*.min.js"))
+COPY --from=npm /code/scorm-again /code/scorm-again
+RUN (cd /code/scorm-again/node_modules/scorm-again && rm -rf $(ls -A -I dist -I "LICENSE*" -I "package*") && cd dist && rm -rf $(ls -A -I "*.min.js"))
 
 FROM $FLUX_NAMESPACE_CHANGER_IMAGE:v2022-06-23-1 AS build_namespaces
 
@@ -32,7 +34,7 @@ COPY --from=build_namespaces /code/flux-autoload-api /build/flux-scorm-player-ap
 COPY --from=build_namespaces /code/flux-file-storage-api /build/flux-scorm-player-api/libs/flux-file-storage-api
 COPY --from=build_namespaces /code/flux-rest-api /build/flux-scorm-player-api/libs/flux-rest-api
 COPY --from=composer /code/mongo-php-library /build/flux-scorm-player-api/libs/mongo-php-library
-COPY --from=npm /code/scorm-again /build/flux-scorm-player-api/libs/scorm-again
+COPY --from=composer /code/scorm-again /build/flux-scorm-player-api/libs/scorm-again
 COPY . /build/flux-scorm-player-api
 
 RUN (cd /build && tar -czf flux-scorm-player-api.tar.gz flux-scorm-player-api)
