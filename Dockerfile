@@ -5,11 +5,11 @@ ARG FLUX_REST_API_IMAGE
 
 FROM $FLUX_AUTOLOAD_API_IMAGE:v2022-06-22-1 AS flux_autoload_api
 FROM $FLUX_FILE_STORAGE_API_IMAGE:v2022-07-05-1 AS flux_file_storage_api
-FROM $FLUX_REST_API_IMAGE:v2022-06-29-2 AS flux_rest_api
+FROM $FLUX_REST_API_IMAGE:v2022-07-11-1 AS flux_rest_api
 
 FROM composer:latest AS composer
 
-RUN (mkdir -p /code/mongo-php-library && cd /code/mongo-php-library && composer require mongodb/mongodb:1.12.0 --ignore-platform-reqs)
+RUN (mkdir -p /code/mongo-php-library && cd /code/mongo-php-library && composer require mongodb/mongodb:1.12.0 --ignore-platform-reqs && rm -rf vendor/mongodb/mongodb/tests)
 
 FROM node:current-alpine AS npm
 
