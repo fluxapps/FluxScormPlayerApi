@@ -9,11 +9,11 @@ FROM $FLUX_REST_API_IMAGE:v2022-07-11-1 AS flux_rest_api
 
 FROM composer:latest AS composer
 
-RUN (mkdir -p /code/mongo-php-library && cd /code/mongo-php-library && composer require mongodb/mongodb:1.12.0 --ignore-platform-reqs && rm -rf vendor/mongodb/mongodb/tests)
+RUN (mkdir -p /code/mongo-php-library && cd /code/mongo-php-library && composer require mongodb/mongodb:1.12.0 --ignore-platform-reqs && cd vendor/mongodb/mongodb && rm -rf $(ls -A -I "composer*" -I "LICENSE*" -I src))
 
 FROM node:current-alpine AS npm
 
-RUN (mkdir -p /code/scorm-again && cd /code/scorm-again && npm install scorm-again@1.7.0)
+RUN (mkdir -p /code/scorm-again && cd /code/scorm-again && npm install scorm-again@1.7.0 && cd node_modules/scorm-again && rm -rf $(ls -A -I dist -I "LICENSE*" -I "package*") && cd dist && rm -rf $(ls -A -I "*.min.js"))
 
 FROM $FLUX_NAMESPACE_CHANGER_IMAGE:v2022-06-23-1 AS build_namespaces
 
