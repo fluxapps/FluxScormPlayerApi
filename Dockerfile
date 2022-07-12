@@ -1,50 +1,24 @@
-ARG FLUX_AUTOLOAD_API_IMAGE
-ARG FLUX_FILE_STORAGE_API_IMAGE
-ARG FLUX_NAMESPACE_CHANGER_IMAGE=docker-registry.fluxpublisher.ch/flux-namespace-changer
-ARG FLUX_REST_API_IMAGE
-
-FROM $FLUX_AUTOLOAD_API_IMAGE:v2022-06-22-1 AS flux_autoload_api
-FROM $FLUX_FILE_STORAGE_API_IMAGE:v2022-07-05-1 AS flux_file_storage_api
-FROM $FLUX_REST_API_IMAGE:v2022-07-11-1 AS flux_rest_api
-
 FROM node:current-alpine AS npm
 
-RUN (mkdir -p /code/scorm-again && cd /code/scorm-again && npm install scorm-again@1.7.0)
+RUN (mkdir -p /build/flux-scorm-player-api/libs/scorm-again && cd /build/flux-scorm-player-api/libs/scorm-again && npm install scorm-again@1.7.0)
 
-FROM composer:latest AS composer
+FROM composer:latest AS build
 
-RUN (mkdir -p /code/mongo-php-library && cd /code/mongo-php-library && composer require mongodb/mongodb:1.12.0 --ignore-platform-reqs && cd vendor/mongodb/mongodb && rm -rf $(ls -A -I "composer*" -I "LICENSE*" -I src))
-COPY --from=npm /code/scorm-again /code/scorm-again
-RUN (cd /code/scorm-again/node_modules/scorm-again && rm -rf $(ls -A -I dist -I "LICENSE*" -I "package*") && cd dist && rm -rf $(ls -A -I "*.min.js"))
+RUN (mkdir -p /flux-namespace-changer && cd /flux-namespace-changer && wget -O - https://github.com/flux-eco/flux-namespace-changer/releases/download/v2022-07-12-1/flux-namespace-changer-v2022-07-12-1-build.tar.gz | tar -xz --strip-components=1)
 
-FROM $FLUX_NAMESPACE_CHANGER_IMAGE:v2022-06-23-1 AS build_namespaces
+RUN (mkdir -p /build/flux-scorm-player-api/libs/mongo-php-library && cd /build/flux-scorm-player-api/libs/mongo-php-library && composer require mongodb/mongodb:1.12.0 --ignore-platform-reqs && cd vendor/mongodb/mongodb && rm -rf $(ls -A -I "composer*" -I "LICENSE*" -I src))
 
-COPY --from=flux_autoload_api /flux-autoload-api /code/flux-autoload-api
-RUN change-namespace /code/flux-autoload-api FluxAutoloadApi FluxScormPlayerApi\\Libs\\FluxAutoloadApi
+COPY --from=npm /build/flux-scorm-player-api/libs/scorm-again /build/flux-scorm-player-api/libs/scorm-again
+RUN (cd /build/flux-scorm-player-api/libs/scorm-again/node_modules/scorm-again && rm -rf $(ls -A -I dist -I "LICENSE*" -I "package*") && cd dist && rm -rf $(ls -A -I "*.min.js"))
 
-COPY --from=flux_file_storage_api /flux-file-storage-api /code/flux-file-storage-api
-RUN change-namespace /code/flux-file-storage-api FluxFileStorageApi FluxScormPlayerApi\\Libs\\FluxFileStorageApi
+RUN (mkdir -p /build/flux-scorm-player-api/libs/flux-autoload-api && cd /build/flux-scorm-player-api/libs/flux-autoload-api && wget -O - https://github.com/flux-eco/flux-autoload-api/releases/download/v2022-07-12-1/flux-autoload-api-v2022-07-12-1-build.tar.gz | tar -xz --strip-components=1 && /flux-namespace-changer/bin/change-namespace.php . FluxAutoloadApi FluxScormPlayerApi\\Libs\\FluxAutoloadApi)
 
-COPY --from=flux_rest_api /flux-rest-api /code/flux-rest-api
-RUN change-namespace /code/flux-rest-api FluxRestApi FluxScormPlayerApi\\Libs\\FluxRestApi
+RUN (mkdir -p /build/flux-scorm-player-api/libs/flux-file-storage-api && cd /build/flux-scorm-player-api/libs/flux-file-storage-api && wget -O - https://github.com/flux-eco/flux-file-storage-api/releases/download/v2022-07-12-1/flux-file-storage-api-v2022-07-12-1-build.tar.gz | tar -xz --strip-components=1 && /flux-namespace-changer/bin/change-namespace.php . FluxFileStorageApi FluxScormPlayerApi\\Libs\\FluxFileStorageApi)
 
-FROM alpine:latest AS build
+RUN (mkdir -p /build/flux-scorm-player-api/libs/flux-rest-api && cd /build/flux-scorm-player-api/libs/flux-rest-api && wget -O - https://github.com/flux-eco/flux-rest-api/releases/download/v2022-07-12-1/flux-rest-api-v2022-07-12-1-build.tar.gz | tar -xz --strip-components=1 && /flux-namespace-changer/bin/change-namespace.php . FluxRestApi FluxScormPlayerApi\\Libs\\FluxRestApi)
 
-COPY --from=build_namespaces /code/flux-autoload-api /build/flux-scorm-player-api/libs/flux-autoload-api
-COPY --from=build_namespaces /code/flux-file-storage-api /build/flux-scorm-player-api/libs/flux-file-storage-api
-COPY --from=build_namespaces /code/flux-rest-api /build/flux-scorm-player-api/libs/flux-rest-api
-COPY --from=composer /code/mongo-php-library /build/flux-scorm-player-api/libs/mongo-php-library
-COPY --from=composer /code/scorm-again /build/flux-scorm-player-api/libs/scorm-again
 COPY . /build/flux-scorm-player-api
-
-RUN (cd /build && tar -czf flux-scorm-player-api.tar.gz flux-scorm-player-api)
 
 FROM scratch
 
-LABEL org.opencontainers.image.source="https://github.com/flux-eco/flux-scorm-player-api"
-LABEL maintainer="fluxlabs <support@fluxlabs.ch> (https://fluxlabs.ch)"
-
 COPY --from=build /build /
-
-ARG COMMIT_SHA
-LABEL org.opencontainers.image.revision="$COMMIT_SHA"
