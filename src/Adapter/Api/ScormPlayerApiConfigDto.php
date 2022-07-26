@@ -48,23 +48,16 @@ class ScormPlayerApiConfigDto
             . $database_config->port))->selectDatabase($database_config->database);
 
         $data_storage_config = DataStorageConfigDto::newFromEnv();
-        switch ($data_storage_config->type) {
-            case DataStorageConfigType::EXTERNAL_API:
-                $data_storage = ExternalApiDataStorage::new(
-                    ExternalApiDataStorageConfigDto::newFromEnv(),
-                    RestApi::new()
-                );
-                break;
-
-            case DataStorageConfigType::DATABASE:
-                $data_storage = DatabaseDataStorage::newFromDatabase(
-                    $database
-                );
-                break;
-
-            default:
-                throw new Exception("Unknown data storage type " . $data_storage_config->type->value);
-        }
+        $data_storage = match ($data_storage_config->type) {
+            DataStorageConfigType::EXTERNAL_API => ExternalApiDataStorage::new(
+                ExternalApiDataStorageConfigDto::newFromEnv(),
+                RestApi::new()
+            ),
+            DataStorageConfigType::DATABASE => DatabaseDataStorage::newFromDatabase(
+                $database
+            ),
+            default => throw new Exception("Unknown data storage type " . $data_storage_config->type->value)
+        };
 
         return static::new(
             FilesystemConfigDto::newFromEnv(),
