@@ -53,20 +53,11 @@ class UploadScormPackageCommand
             $id . "/imsmanifest.xml"
         ))), true);
 
-        switch ($manifest["metadata"]["schemaversion"]) {
-            case "1.2":
-                $type = MetadataType::_1_2;
-                break;
-
-            case "CAM 1.3":
-            case "2004 3rd Edition":
-            case "2004 4rd Edition":
-                $type = MetadataType::_2004;
-                break;
-
-            default:
-                throw new Exception("Unknown scorm type " . $manifest["metadata"]["schemaversion"]);
-        }
+        $type = match ($manifest["metadata"]["schemaversion"]) {
+            "1.2" => MetadataType::_1_2,
+            "CAM 1.3", "2004 3rd Edition", "2004 4rd Edition" => MetadataType::_2004,
+            default => throw new Exception("Unknown scorm type " . $manifest["metadata"]["schemaversion"])
+        };
 
         $this->metadata_storage->storeMetadata(
             $id,
