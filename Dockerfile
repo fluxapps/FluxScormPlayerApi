@@ -1,4 +1,4 @@
-FROM node:current-alpine AS npm
+FROM node:18-alpine AS npm
 
 RUN (mkdir -p /build/flux-scorm-player-api/libs/scorm-again && cd /build/flux-scorm-player-api/libs/scorm-again && npm install scorm-again@1.7.0)
 
