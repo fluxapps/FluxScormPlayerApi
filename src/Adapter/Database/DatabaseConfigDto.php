@@ -2,6 +2,8 @@
 
 namespace FluxScormPlayerApi\Adapter\Database;
 
+use SensitiveParameter;
+
 class DatabaseConfigDto
 {
 
@@ -17,7 +19,7 @@ class DatabaseConfigDto
 
 
     public static function new(
-        string $password,
+        #[SensitiveParameter] string $password,
         ?string $host = null,
         ?int $port = null,
         ?string $user = null,
