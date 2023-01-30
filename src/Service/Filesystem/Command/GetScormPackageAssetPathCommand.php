@@ -2,7 +2,7 @@
 
 namespace FluxScormPlayerApi\Service\Filesystem\Command;
 
-use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Api\FileStorageApi;
+use FluxFileStorageApi\Adapter\Api\FileStorageApi;
 use FluxScormPlayerApi\Service\Filesystem\FilesystemUtils;
 
 class GetScormPackageAssetPathCommand

@@ -9,12 +9,12 @@ Scorm Player Api for play scorm modules
 #### Download
 
 ```dockerfile
-RUN (mkdir -p /%path%/libs/flux-scorm-player-api && cd /%path%/libs/flux-scorm-player-api && wget -O - https://github.com/fluxfw/flux-scorm-player-api/releases/download/%tag%/flux-scorm-player-api-%tag%-build.tar.gz | tar -xz --strip-components=1)
+RUN (mkdir -p /%path%/libs/flux-scorm-player-api && cd /%path%/libs/flux-scorm-player-api && wget -O - https://github.com/fluxfw/flux-scorm-player-api/archive/refs/tags/%tag%.tar.gz | tar -xz --strip-components=1)
 ```
 
 or
 
-Download https://github.com/fluxfw/flux-scorm-player-api/releases/download/%tag%/flux-scorm-player-api-%tag%-build.tar.gz and extract it to `/%path%/libs/flux-scorm-player-api`
+Download https://github.com/fluxfw/flux-scorm-player-api/archive/refs/tags/%tag%.tar.gz and extract it to `/%path%/libs/flux-scorm-player-api`
 
 #### Load
 
@@ -33,7 +33,7 @@ require_once __DIR__ . "/%path%/libs/flux-scorm-player-api/autoload.php";
                 "name": "flux/flux-scorm-player-api",
                 "version": "%tag%",
                 "dist": {
-                    "url": "https://github.com/fluxfw/flux-scorm-player-api/releases/download/%tag%/flux-scorm-player-api-%tag%-build.tar.gz",
+                    "url": "https://github.com/fluxfw/flux-scorm-player-api/archive/refs/tags/%tag%.tar.gz",
                     "type": "tar"
                 },
                 "autoload": {

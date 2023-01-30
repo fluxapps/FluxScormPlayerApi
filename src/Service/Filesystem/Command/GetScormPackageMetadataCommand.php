@@ -2,9 +2,9 @@
 
 namespace FluxScormPlayerApi\Service\Filesystem\Command;
 
+use FluxFileStorageApi\Adapter\Api\FileStorageApi;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataDto;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
-use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Api\FileStorageApi;
 use FluxScormPlayerApi\Service\Filesystem\FilesystemUtils;
 
 class GetScormPackageMetadataCommand

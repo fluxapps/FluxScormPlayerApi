@@ -2,9 +2,9 @@
 
 namespace FluxScormPlayerApi\Adapter\Api;
 
-use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Api\FileStorageApi;
-use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Api\FileStorageApiConfigDto;
-use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Storage\StorageConfigDto;
+use FluxFileStorageApi\Adapter\Api\FileStorageApi;
+use FluxFileStorageApi\Adapter\Api\FileStorageApiConfigDto;
+use FluxFileStorageApi\Adapter\Storage\StorageConfigDto;
 use FluxScormPlayerApi\Service\Filesystem\Port\FilesystemService;
 use FluxScormPlayerApi\Service\PlayScormPackage\Port\PlayScormPackageService;
 

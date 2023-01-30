@@ -3,6 +3,7 @@
 namespace FluxScormPlayerApi\Adapter\Api;
 
 use Exception;
+use FluxRestApi\Adapter\Api\RestApi;
 use FluxScormPlayerApi\Adapter\Database\DatabaseConfigDto;
 use FluxScormPlayerApi\Adapter\DataStorage\DatabaseDataStorage;
 use FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
@@ -13,7 +14,6 @@ use FluxScormPlayerApi\Adapter\DataStorage\ExternalApiDataStorageConfigDto;
 use FluxScormPlayerApi\Adapter\Filesystem\FilesystemConfigDto;
 use FluxScormPlayerApi\Adapter\MetadataStorage\DatabaseMetadataStorage;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
-use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Api\RestApi;
 use MongoDB\Client;
 
 class ScormPlayerApiConfigDto
