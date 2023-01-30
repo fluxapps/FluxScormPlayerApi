@@ -2,13 +2,13 @@
 
 namespace FluxScormPlayerApi\Adapter\DataStorage;
 
-use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Api\RestApi;
-use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Body\JsonBodyDto;
-use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Body\Type\DefaultBodyType;
-use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Client\ClientRequestDto;
-use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Header\DefaultHeaderKey;
-use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Method\DefaultMethod;
-use FluxScormPlayerApi\Libs\FluxRestApi\Adapter\Method\Method;
+use FluxRestApi\Adapter\Api\RestApi;
+use FluxRestApi\Adapter\Body\JsonBodyDto;
+use FluxRestApi\Adapter\Body\Type\DefaultBodyType;
+use FluxRestApi\Adapter\Client\ClientRequestDto;
+use FluxRestApi\Adapter\Header\DefaultHeaderKey;
+use FluxRestApi\Adapter\Method\DefaultMethod;
+use FluxRestApi\Adapter\Method\Method;
 
 class ExternalApiDataStorage implements DataStorage
 {
@@ -74,9 +74,7 @@ class ExternalApiDataStorage implements DataStorage
             $placeholders["user_id"] = $user_id;
         }
 
-        $headers = [
-            DefaultHeaderKey::USER_AGENT->value => "flux-scorm-player-api"
-        ];
+        $headers = [];
 
         if ($data !== null) {
             $data = JsonBodyDto::new(

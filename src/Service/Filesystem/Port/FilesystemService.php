@@ -2,10 +2,10 @@
 
 namespace FluxScormPlayerApi\Service\Filesystem\Port;
 
+use FluxFileStorageApi\Adapter\Api\FileStorageApi;
 use FluxScormPlayerApi\Adapter\DataStorage\DataStorage;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataDto;
 use FluxScormPlayerApi\Adapter\MetadataStorage\MetadataStorage;
-use FluxScormPlayerApi\Libs\FluxFileStorageApi\Adapter\Api\FileStorageApi;
 use FluxScormPlayerApi\Service\Filesystem\Command\DeleteScormPackageCommand;
 use FluxScormPlayerApi\Service\Filesystem\Command\GetScormPackageAssetPathCommand;
 use FluxScormPlayerApi\Service\Filesystem\Command\GetScormPackageMetadataCommand;
